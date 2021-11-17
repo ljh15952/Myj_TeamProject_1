@@ -13,5 +13,7 @@ public class MainActivity extends AppCompatActivity {
         /////명지대학교
         //TEST modify test
         //modify Test 2222222222222222
+
+        //민석님 안녕하세요
     }
 }
