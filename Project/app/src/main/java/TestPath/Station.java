@@ -1,11 +1,11 @@
 package TestPath;
 
 public class Station {
-    String station_name;
-    String cost;
-    String time;
-    String distance;
-    int line;
+    private String station_name;
+    private String cost;
+    private String time;
+    private String distance;
+    private int line;
 
     public Station(String name, String c, String t, String d, int l){
         station_name = name;

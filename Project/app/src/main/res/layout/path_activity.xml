@@ -26,19 +26,31 @@
             android:layout_marginLeft="5dp"
             android:id="@+id/button2"
             android:onClick="pressButton2"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:id="@+id/button3"
-            android:onClick="pressButton3"/>
+
     </LinearLayout>
 
-    <TestPath.PathView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp">
-    </TestPath.PathView>
+        android:layout_height="match_parent">
+        <TestPath.PathView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/path">
+        </TestPath.PathView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:onClick="pressButton3"
+                android:layout_marginRight="15dp"/>
+        </LinearLayout>
+    </FrameLayout>
+
 </LinearLayout>

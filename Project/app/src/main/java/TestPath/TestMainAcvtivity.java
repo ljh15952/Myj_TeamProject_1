@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myj_teamproj_1.R;
 
+import java.util.ArrayList;
+
 public class TestMainAcvtivity extends AppCompatActivity {
     Button button1, button2, button3;
 
@@ -29,18 +31,12 @@ public class TestMainAcvtivity extends AppCompatActivity {
         button3.setText("확대");
     }
 
-    public void stop(View view){
-        if(PathView.move)
-            PathView.move = false;
-        else
-            PathView.move = true;
-    }
-
     public void pressButton1(View view){
         button1.setBackgroundColor(Color.GRAY);
         button2.setBackgroundColor(Color.BLACK);
 
         PathView.type = 0;
+        PathView.ny = 200;
         setButton3(view);
     }
 
@@ -49,24 +45,29 @@ public class TestMainAcvtivity extends AppCompatActivity {
         button2.setBackgroundColor(Color.GRAY);
 
         PathView.type = 1;
+        PathView.ny = 200;
         setButton3(view);
     }
 
     public void pressButton3(View view){
         if(PathView.screen == 0) {
             PathView.screen = 1;
-            button3.setBackgroundColor(Color.GRAY);
+            button3.setBackgroundColor(Color.DKGRAY);
             button3.setText("축소");
+            PathView.move = true;
         }else{
             PathView.screen = 0;
             button3.setBackgroundColor(Color.BLACK);
             button3.setText("확대");
+            PathView.move = false;
         }
+        PathView.ny = 200;
     }
 
     public void setButton3(View view){
         PathView.screen = 0;
         button3.setBackgroundColor(Color.BLACK);
         button3.setText("확대");
+        PathView.move = false;
     }
 }
