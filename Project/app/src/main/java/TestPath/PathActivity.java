@@ -12,8 +12,8 @@ import com.example.myj_teamproj_1.R;
 
 import java.util.ArrayList;
 
-public class TestMainAcvtivity extends AppCompatActivity {
-    Button button1, button2, button3;
+public class PathActivity extends AppCompatActivity {
+    Button button1, button2, button3, done, set;
 
     @Override
     protected void onCreate(Bundle savedInstance){
@@ -23,10 +23,14 @@ public class TestMainAcvtivity extends AppCompatActivity {
         button1 = (Button) findViewById(R.id.button1);
         button2 = (Button) findViewById(R.id.button2);
         button3 = (Button) findViewById(R.id.button3);
+        done = (Button) findViewById(R.id.done);
+        set = (Button) findViewById(R.id.setting);
 
         button1.setBackgroundColor(Color.GRAY);
         button2.setBackgroundColor(Color.BLACK);
         button3.setBackgroundColor(Color.BLACK);
+        done.setBackgroundColor(Color.BLACK);
+        set.setBackgroundColor(Color.BLACK);
 
         button3.setText("확대");
     }
@@ -69,5 +73,9 @@ public class TestMainAcvtivity extends AppCompatActivity {
         button3.setBackgroundColor(Color.BLACK);
         button3.setText("확대");
         PathView.move = false;
+    }
+
+    public void done(View view){
+        finish();
     }
 }
