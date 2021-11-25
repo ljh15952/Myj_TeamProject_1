@@ -2,14 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/firstLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity" >
 
     <LinearLayout
-        android:id="@+id/toolLayout"
         android:layout_width="match_parent"
         android:layout_height="50sp"
         android:orientation="horizontal">
@@ -18,16 +16,23 @@
             android:id="@+id/backButton"
             android:layout_width="50sp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@color/white"
-            app:srcCompat="@drawable/ic_baseline_menu_24" />
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
-        <ImageButton
-            android:id="@+id/searchButton"
-            android:layout_width="wrap_content"
+        <AutoCompleteTextView
+            android:id="@+id/searchText"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.01"
-            android:background="@color/white"
-            app:srcCompat="@drawable/searchbutton" />
+            android:layout_weight="8"
+            android:hint="역 검색 및 즐겨찾기" />
+
 
     </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
 </LinearLayout>
