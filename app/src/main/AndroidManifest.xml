@@ -10,22 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyjTeamProject1">
         <activity
-            android:label="메뉴 액티비티"
-            android:name=".MenuActivity"
-            android:exported="false" />
-        <activity
-            android:label="검색 액티비티"
-            android:name=".SearchActivity"
-            android:exported="false" />
-        <activity
-            android:label="메인 액티비티"
-            android:name=".MainActivity"
+            android:name=".TestPath.MainActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+        <activity android:name=".TestPath.PathActivity">
+
         </activity>
     </application>
 
