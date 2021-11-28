@@ -1,4 +1,4 @@
-package Path_Finder_Package;
+package com.example.myjteamproject1.Algorithm.Path_Finder_Package;
 
 public class tuple {
 	private int x;

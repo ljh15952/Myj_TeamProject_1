@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         menuButton  =  findViewById(R.id.backButton);
-        searchButton = findViewById(R.id.searchButton);
+        //searchButton = findViewById(R.id.searchButton);
 
         searchButton.setOnClickListener(new View.OnClickListener(){
 

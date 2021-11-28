@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyjTeamProject1">
         <activity
-            android:name=".TestPath.MainActivity"
+            android:name=".MainView.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -18,9 +18,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".TestPath.PathActivity">
-
+        <activity android:name=".MainView.pathViewActivity">
         </activity>
+
+        <activity android:name=".TestPath.PathActivity">
+        </activity>
+
     </application>
 
 </manifest>

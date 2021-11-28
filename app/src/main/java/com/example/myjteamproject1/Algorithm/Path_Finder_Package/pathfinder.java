@@ -1,4 +1,4 @@
-package Path_Finder_Package;
+package com.example.myjteamproject1.Algorithm.Path_Finder_Package;
 
 import java.util.Scanner;
 import java.util.PriorityQueue;
