@@ -4,7 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.Window;
 
-import com.example.myjteamproject1.R;
+import com.example.myjtest.R;
 
 public class LoadingDialog extends Dialog {
     public LoadingDialog(Context context)

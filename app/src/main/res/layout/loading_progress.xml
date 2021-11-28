@@ -7,7 +7,7 @@
     android:padding="6dp"
     android:background="@drawable/progress_bg"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainView.LoadingDialog">
+    tools:context="com.example.myjteamproject1.MainView.LoadingDialog">
     <ProgressBar
         android:layout_width="72dp"
         android:layout_height="72dp"

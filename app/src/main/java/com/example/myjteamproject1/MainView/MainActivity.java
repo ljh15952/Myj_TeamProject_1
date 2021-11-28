@@ -2,16 +2,20 @@ package com.example.myjteamproject1.MainView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.myjteamproject1.R;
+import com.example.myjtest.R;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class MainActivity extends Activity {
             public void onAnimationEnd(Animation animation) {
                 Intent intent = new Intent(MainActivity.this,pathViewActivity.class);
                 startActivity(intent);
+                finish();
             }
             @Override
             public void onAnimationRepeat(Animation animation) {

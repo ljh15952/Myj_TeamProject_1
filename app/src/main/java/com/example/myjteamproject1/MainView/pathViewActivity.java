@@ -1,13 +1,13 @@
 package com.example.myjteamproject1.MainView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,27 +20,28 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
-import com.example.myjteamproject1.R;
-import com.example.myjteamproject1.TestPath.PathActivity;
+import com.example.myjteamproject1.PathView.PathActivity;
+import com.example.myjtest.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class pathViewActivity extends Activity {
     SubsamplingScaleImageView imageView;
     GestureDetector gestureDetector = null;
 
-    private Station clickedStaion;
+    private Stations clickedStaion;
     private Button btn_1;
     private Button btn_2;
     private Button goPath_button;
 
     private TextView tv_1;
     private TextView tv_2;
-    private ArrayList<Station> list;
+    private ArrayList<Stations> list;
 
     LoadingDialog loadingDialog;
 
@@ -48,15 +49,14 @@ public class pathViewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_path_view);
-
         imageView = findViewById(R.id.imageView);
-        imageView.setImage(ImageSource.resource(R.drawable.map));
+        imageView.setImage(ImageSource.asset("map.png"));
 
-        btn_1 = (Button) findViewById(R.id.btn_1);
-        btn_2 = (Button) findViewById(R.id.btn_2);
-        tv_1 = (TextView) findViewById(R.id.tv_1);
-        tv_2 = (TextView) findViewById(R.id.tv_2);
-        goPath_button = (Button)findViewById(R.id.button2) ;
+        btn_1 = findViewById(R.id.btn_1);
+        btn_2 = findViewById(R.id.btn_2);
+        tv_1 = findViewById(R.id.tv_1);
+        tv_2 = findViewById(R.id.tv_2);
+        goPath_button = findViewById(R.id.button2);
 
         list = new ArrayList<>();
         setAllStationInfo();
@@ -72,19 +72,10 @@ public class pathViewActivity extends Activity {
                 return false;
             }
         });
-
         btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tv_1.setText("출발역: " + clickedStaion.name);
-                btn_1.setVisibility(View.INVISIBLE);
-                btn_2.setVisibility(View.INVISIBLE);
-            }
-        });
-        btn_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tv_2.setText("도착역: " + clickedStaion.name);
                 btn_1.setVisibility(View.INVISIBLE);
                 btn_2.setVisibility(View.INVISIBLE);
             }
@@ -98,6 +89,15 @@ public class pathViewActivity extends Activity {
             }
         });
 
+        btn_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_2.setText("도착역: " + clickedStaion.name);
+                btn_1.setVisibility(View.INVISIBLE);
+                btn_2.setVisibility(View.INVISIBLE);
+            }
+        });
+
         gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() { // gesture 디텍팅으로 지하철 위치 읽기
             @Override
             public boolean onSingleTapUp(MotionEvent ev) {
@@ -105,7 +105,7 @@ public class pathViewActivity extends Activity {
                     PointF sCoord = imageView.viewToSourceCoord(ev.getX(), ev.getY());
                     int x_cor = (int) sCoord.x;
                     int y_cor = (int) sCoord.y;
-                    for (Station st : list) {
+                    for (Stations st : list) {
                         if (st.isClicked(x_cor, y_cor)) {
                             clickedStaion = st;
                             btn_1.setVisibility(View.VISIBLE);
@@ -132,8 +132,9 @@ public class pathViewActivity extends Activity {
                         int y1 = jsonObject.getInt("Y1");
                         int x2 = jsonObject.getInt("X2");
                         int y2 = jsonObject.getInt("Y2");
-                        Station st = new Station(name, x1, y1, x2, y2);
+                        Stations st = new Stations(name, x1, y1, x2, y2);
                         list.add(st);
+                        Log.v("database", "in");
                         if(list.size() > 50)
                             loadingDialog.dismiss();
                     }
