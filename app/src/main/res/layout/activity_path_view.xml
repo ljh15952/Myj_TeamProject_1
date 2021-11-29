@@ -12,7 +12,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
-        android:layout_marginLeft="310dp"/>
+        android:layout_marginLeft="310dp"
+        android:id="@+id/setting"
+        app:circularflow_radiusInDP="15dp"/>
 
     <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
         android:id="@+id/imageView"
@@ -25,8 +27,7 @@
         app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
-    </com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
+        tools:ignore="MissingConstraints"/>
 
     <Button
         android:id="@+id/btn_1"
@@ -39,7 +40,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:circularflow_radiusInDP="15dp"/>
 
     <Button
         android:id="@+id/btn_2"
@@ -52,7 +54,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.581"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:circularflow_radiusInDP="15dp"/>
 
     <TextView
         android:textSize="20dp"
@@ -116,7 +119,7 @@
         android:layout_marginTop="110dp"
         android:text="길찾기!"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_1" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_1"/>
 
     <TextView
         android:id="@+id/tv_choice"

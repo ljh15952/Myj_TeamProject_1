@@ -6,7 +6,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -15,6 +18,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +44,7 @@ public class pathViewActivity extends Activity {
     private Stations clickedStaion;
     private Button btn_1;
     private Button btn_2;
+    private Button setting;
     private Button goPath_button;
 
     private TextView tv_s;
@@ -48,6 +53,7 @@ public class pathViewActivity extends Activity {
     private ArrayList<Stations> list;
 
     LoadingDialog loadingDialog;
+    Canvas canvas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +64,7 @@ public class pathViewActivity extends Activity {
 
         btn_1 = findViewById(R.id.btn_1);
         btn_2 = findViewById(R.id.btn_2);
+        setting = findViewById(R.id.setting);
         tv_s = (TextView) findViewById(R.id.tv_start);
         tv_e = (TextView) findViewById(R.id.tv_end);
         tv_c = findViewById(R.id.tv_choice);
