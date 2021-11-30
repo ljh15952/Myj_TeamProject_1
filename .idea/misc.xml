@@ -3,16 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/admin/Desktop/project/android/Myj_TeamProject_1/app/src/main/res/layout/loading_progress.xml" value="0.1707193515704154" />
-        <entry key="..\:/Users/ljh15/Desktop/MYJTEST/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/ljh15/Desktop/MYJTEST/app/src/main/res/drawable/ic_baseline_autorenew_24.xml" value="0.23020833333333332" />
-        <entry key="..\:/Users/ljh15/Desktop/MYJTEST/app/src/main/res/drawable/ic_launcher_background.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/ljh15/Desktop/MYJTEST/app/src/main/res/drawable/pogress_bg.xml" value="0.23020833333333332" />
-        <entry key="..\:/Users/ljh15/Desktop/MYJTEST/app/src/main/res/drawable/progress_image.xml" value="0.23020833333333332" />
-        <entry key="..\:/Users/ljh15/Desktop/MYJTEST/app/src/main/res/layout/activity_main.xml" value="0.2638888888888889" />
-        <entry key="..\:/Users/ljh15/Desktop/MYJTEST/app/src/main/res/layout/activity_path_view.xml" value="0.25" />
-        <entry key="..\:/Users/ljh15/Desktop/MYJTEST/app/src/main/res/layout/loading_progress.xml" value="0.2140625" />
-        <entry key="..\:/Users/ljh15/Desktop/MYJTEST/app/src/main/res/layout/progress_bg.xml" value="0.2140625" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/Myj_TeamProject_1/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/Myj_TeamProject_1/app/src/main/res/layout/activity_menu.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/Myj_TeamProject_1/app/src/main/res/layout/activity_search.xml" value="0.33" />
+        <entry key="..\:/Users/ljh15/Desktop/GITTEST/app/src/main/res/layout/activity_main.xml" value="0.2712962962962963" />
       </map>
     </option>
   </component>

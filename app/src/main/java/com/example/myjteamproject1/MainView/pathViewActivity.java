@@ -177,5 +177,9 @@ public class pathViewActivity extends Activity {
             DataRequest Request = new DataRequest(i + "", responseListener);
             queue.add(Request);
         }
+        for (int i = 601; i <= 622; i++) {
+            DataRequest Request = new DataRequest(i + "", responseListener);
+            queue.add(Request);
+        }
     }
 }
