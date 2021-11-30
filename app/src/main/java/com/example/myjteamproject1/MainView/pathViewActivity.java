@@ -3,15 +3,22 @@ package com.example.myjteamproject1.MainView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,13 +44,16 @@ public class pathViewActivity extends Activity {
     private Stations clickedStaion;
     private Button btn_1;
     private Button btn_2;
+    private Button setting;
     private Button goPath_button;
 
-    private TextView tv_1;
-    private TextView tv_2;
+    private TextView tv_s;
+    private TextView tv_e;
+    private TextView tv_c;
     private ArrayList<Stations> list;
 
     LoadingDialog loadingDialog;
+    Canvas canvas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +64,10 @@ public class pathViewActivity extends Activity {
 
         btn_1 = findViewById(R.id.btn_1);
         btn_2 = findViewById(R.id.btn_2);
-        tv_1 = findViewById(R.id.tv_1);
-        tv_2 = findViewById(R.id.tv_2);
+        setting = findViewById(R.id.setting);
+        tv_s = (TextView) findViewById(R.id.tv_start);
+        tv_e = (TextView) findViewById(R.id.tv_end);
+        tv_c = findViewById(R.id.tv_choice);
         goPath_button = findViewById(R.id.button2);
 
         list = new ArrayList<>();
@@ -72,12 +84,14 @@ public class pathViewActivity extends Activity {
                 return false;
             }
         });
+
         btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tv_1.setText("출발역: " + clickedStaion.name);
+                tv_s.setText(clickedStaion.name + "");
                 btn_1.setVisibility(View.INVISIBLE);
                 btn_2.setVisibility(View.INVISIBLE);
+                tv_c.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -92,9 +106,10 @@ public class pathViewActivity extends Activity {
         btn_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tv_2.setText("도착역: " + clickedStaion.name);
+                tv_e.setText(clickedStaion.name + "");
                 btn_1.setVisibility(View.INVISIBLE);
                 btn_2.setVisibility(View.INVISIBLE);
+                tv_c.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -110,7 +125,9 @@ public class pathViewActivity extends Activity {
                             clickedStaion = st;
                             btn_1.setVisibility(View.VISIBLE);
                             btn_2.setVisibility(View.VISIBLE);
-                            Toast.makeText(getApplicationContext(), st.name + " 클릭!!", Toast.LENGTH_SHORT).show();
+                            tv_c.setText(st.name + "번 역을 클릭하셨습니다.");
+                            tv_c.setVisibility(View.VISIBLE);
+                            //Toast.makeText(getApplicationContext(), st.name + " 클릭!!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -134,12 +151,13 @@ public class pathViewActivity extends Activity {
                         int y2 = jsonObject.getInt("Y2");
                         Stations st = new Stations(name, x1, y1, x2, y2);
                         list.add(st);
-                        Log.v("database", "in");
                         if(list.size() > 50)
                             loadingDialog.dismiss();
                     }
                 } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(), "값 가져오기 실패", Toast.LENGTH_SHORT).show();
+                    tv_c.setText("값 가져오기를 실패하였습니다.");
+                    tv_c.setVisibility(View.VISIBLE);
+                    //Toast.makeText(getApplicationContext(), "값 가져오기 실패", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
             }
