@@ -24,6 +24,8 @@ public class StationRequest extends StringRequest {
         map = new HashMap<>();
         map.put("startData", startData + "");
         map.put("endData", endData + "");
+
+        //ㅎㅇ
     }
 
 }
