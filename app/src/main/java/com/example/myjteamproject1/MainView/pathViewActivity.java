@@ -1,7 +1,5 @@
 package com.example.myjteamproject1.MainView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PointF;
@@ -27,8 +25,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 
 public class pathViewActivity extends Activity {
     SubsamplingScaleImageView imageView;
@@ -37,7 +33,7 @@ public class pathViewActivity extends Activity {
     private Stations clickedStaion;
     private Button btn_1;
     private Button btn_2;
-    private Button goPath_button;
+    private Button btn_3;
 
     private TextView tv_1;
     private TextView tv_2;
@@ -56,7 +52,7 @@ public class pathViewActivity extends Activity {
         btn_2 = findViewById(R.id.btn_2);
         tv_1 = findViewById(R.id.tv_1);
         tv_2 = findViewById(R.id.tv_2);
-        goPath_button = findViewById(R.id.button2);
+        btn_3 = findViewById(R.id.btn_3);
 
         list = new ArrayList<>();
         setAllStationInfo();
@@ -81,7 +77,7 @@ public class pathViewActivity extends Activity {
             }
         });
 
-        goPath_button.setOnClickListener(new View.OnClickListener() {
+        btn_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), PathActivity.class);
@@ -134,7 +130,6 @@ public class pathViewActivity extends Activity {
                         int y2 = jsonObject.getInt("Y2");
                         Stations st = new Stations(name, x1, y1, x2, y2);
                         list.add(st);
-                        Log.v("database", "in");
                         if(list.size() > 50)
                             loadingDialog.dismiss();
                     }

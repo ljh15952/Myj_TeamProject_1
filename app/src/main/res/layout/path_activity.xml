@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:text="최소환승"
             android:layout_marginLeft="5dp"
-            android:id="@+id/button2"
+            android:id="@+id/btn_3"
             android:onClick="pressButton2"/>
         <Button
             android:layout_width="50dp"
