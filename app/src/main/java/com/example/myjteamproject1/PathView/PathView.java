@@ -78,9 +78,11 @@ public class PathView extends View {
 //        s.add(new Station("201", "20", "5", "20", 2));
 //        s.add(new Station("202", "5", "20", "5", 3));
 //        s.add(new Station("304", "0", "0", "0", 0));
+
         for (Station st : test) {
             s.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", 1));
         }
+        s.add(new Station(test.get(test.size() - 1).getArrive(), "0", "0", "0", 0));
 
         t.add(new Station("101", "30", "10", "50", 1));
         t.add(new Station("102", "0", "0", "0", 0));
