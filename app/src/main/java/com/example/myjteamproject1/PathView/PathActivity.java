@@ -41,10 +41,9 @@ public class PathActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
-        setContentView(R.layout.path_activity);
 
         loadingDialog = new LoadingDialog(this);
-        loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         loadingDialog.show();
 
         Intent intent = getIntent();
@@ -57,33 +56,39 @@ public class PathActivity extends AppCompatActivity {
             @Override
             public void run() {
                 loadingDialog.dismiss();
+
                 p.setDataSorted();
                 ArrayList<Station> st = p.getStationArr();
+
                 Log.d("SIZE", st.size() + "");
                 for (Station s : st) {
                     Log.d("info", s.getName() + " " + s.getArrive());
-//                    Log.d("end", s.getArrive());
-//                    Log.d("time", s.getTime() + "");
-//                    Log.d("dis", s.getDistance() + "");
-//                    Log.d("cost", s.getCost() + "");
+                    Log.d("time", s.getTime() + "");
+                    Log.d("dis", s.getDistance() + "");
+                    Log.d("cost", s.getCost() + "");
                 }
+
+                PathView.test = st;
+
+                setContentView(R.layout.path_activity);
+
+                button1 = (Button) findViewById(R.id.button1);
+                button2 = (Button) findViewById(R.id.btn_3);
+                button3 = (Button) findViewById(R.id.button3);
+                done = (Button) findViewById(R.id.done);
+                set = (Button) findViewById(R.id.setting);
+
+                button1.setBackgroundColor(Color.GRAY);
+                button2.setBackgroundColor(Color.BLACK);
+                button3.setBackgroundColor(Color.BLACK);
+                done.setBackgroundColor(Color.BLACK);
+                set.setBackgroundColor(Color.BLACK);
+
+                button3.setText("확대");
+
             }
         }, 1000);
-
-
-        button1 = (Button) findViewById(R.id.button1);
-        button2 = (Button) findViewById(R.id.btn_3);
-        button3 = (Button) findViewById(R.id.button3);
-        done = (Button) findViewById(R.id.done);
-        set = (Button) findViewById(R.id.setting);
-
-        button1.setBackgroundColor(Color.GRAY);
-        button2.setBackgroundColor(Color.BLACK);
-        button3.setBackgroundColor(Color.BLACK);
-        done.setBackgroundColor(Color.BLACK);
-        set.setBackgroundColor(Color.BLACK);
-
-        button3.setText("확대");
+        //st배열 배열사용해서 View로 넘겨주면 댐..
     }
 
     public void pressButton1(View view) {
