@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PathActivity extends AppCompatActivity {
-    Button button1, button2, button3, done, set;
+    Button time, cost, distance, button3, done, set;
 
     LoadingDialog loadingDialog;
 
@@ -72,14 +72,16 @@ public class PathActivity extends AppCompatActivity {
 
                 setContentView(R.layout.path_activity);
 
-                button1 = (Button) findViewById(R.id.button1);
-                button2 = (Button) findViewById(R.id.btn_3);
+                time = (Button) findViewById(R.id.time_btn);
+                cost = (Button) findViewById(R.id.cost_btn);
+                distance = (Button) findViewById(R.id.distance_btn);
                 button3 = (Button) findViewById(R.id.button3);
                 done = (Button) findViewById(R.id.done);
                 set = (Button) findViewById(R.id.setting);
 
-                button1.setBackgroundColor(Color.GRAY);
-                button2.setBackgroundColor(Color.BLACK);
+                time.setBackgroundColor(Color.GRAY);
+                cost.setBackgroundColor(Color.BLACK);
+                distance.setBackgroundColor(Color.BLACK);
                 button3.setBackgroundColor(Color.BLACK);
                 done.setBackgroundColor(Color.BLACK);
                 set.setBackgroundColor(Color.BLACK);
@@ -92,8 +94,9 @@ public class PathActivity extends AppCompatActivity {
     }
 
     public void pressButton1(View view) {
-        button1.setBackgroundColor(Color.GRAY);
-        button2.setBackgroundColor(Color.BLACK);
+        time.setBackgroundColor(Color.GRAY);
+        cost.setBackgroundColor(Color.BLACK);
+        distance.setBackgroundColor(Color.BLACK);
 
         PathView.type = 0;
         PathView.ny = 200;
@@ -101,8 +104,9 @@ public class PathActivity extends AppCompatActivity {
     }
 
     public void pressButton2(View view) {
-        button1.setBackgroundColor(Color.BLACK);
-        button2.setBackgroundColor(Color.GRAY);
+        time.setBackgroundColor(Color.BLACK);
+        cost.setBackgroundColor(Color.BLACK);
+        distance.setBackgroundColor(Color.GRAY);
 
         PathView.type = 1;
         PathView.ny = 200;
@@ -110,6 +114,16 @@ public class PathActivity extends AppCompatActivity {
     }
 
     public void pressButton3(View view) {
+        time.setBackgroundColor(Color.BLACK);
+        cost.setBackgroundColor(Color.GRAY);
+        distance.setBackgroundColor(Color.BLACK);
+
+        PathView.type = 1;
+        PathView.ny = 200;
+        setButton3(view);
+    }
+
+    public void pressButton4(View view) {
         if (PathView.screen == 0) {
             PathView.screen = 1;
             button3.setBackgroundColor(Color.DKGRAY);
