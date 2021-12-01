@@ -1,4 +1,4 @@
-package com.example.myjteamproject1.PathView;
+package com.example.myjteamproject1.PathFinder;
 
 import androidx.annotation.Nullable;
 

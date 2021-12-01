@@ -41,6 +41,9 @@ public class pathViewActivity extends Activity {
 
     LoadingDialog loadingDialog;
 
+    private String startStation;
+    private String endStation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +74,7 @@ public class pathViewActivity extends Activity {
         btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startStation = clickedStaion.name + "";
                 tv_1.setText("출발역: " + clickedStaion.name);
                 btn_1.setVisibility(View.INVISIBLE);
                 btn_2.setVisibility(View.INVISIBLE);
@@ -80,7 +84,11 @@ public class pathViewActivity extends Activity {
         btn_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //꼭!!!!!!!
+                //출발역 도착역 설정 안했으면 안넘어가게!!
                 Intent intent = new Intent(getApplicationContext(), PathActivity.class);
+                intent.putExtra("startStation", startStation);
+                intent.putExtra("endStation", endStation);
                 startActivity(intent);
             }
         });
@@ -88,6 +96,7 @@ public class pathViewActivity extends Activity {
         btn_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                endStation = clickedStaion.name + "";
                 tv_2.setText("도착역: " + clickedStaion.name);
                 btn_1.setVisibility(View.INVISIBLE);
                 btn_2.setVisibility(View.INVISIBLE);
@@ -130,7 +139,7 @@ public class pathViewActivity extends Activity {
                         int y2 = jsonObject.getInt("Y2");
                         Stations st = new Stations(name, x1, y1, x2, y2);
                         list.add(st);
-                        if(list.size() > 50)
+                        if (list.size() > 50)
                             loadingDialog.dismiss();
                     }
                 } catch (JSONException e) {

@@ -1,9 +1,13 @@
 package com.example.myjteamproject1.PathView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Path;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,14 +36,39 @@ import java.util.Scanner;
 public class PathActivity extends AppCompatActivity {
     Button button1, button2, button3, done, set;
 
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.path_activity);
 
-        //101과 102는 임시
-        PathFinder p = new PathFinder(101, 622, 0, PathActivity.this);
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        loadingDialog.show();
+
+        Intent intent = getIntent();
+        int start = Integer.parseInt(intent.getStringExtra("startStation"));
+        int end = Integer.parseInt(intent.getStringExtra("endStation"));
+        PathFinder p = new PathFinder(start, end, 0, PathActivity.this);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadingDialog.dismiss();
+                p.setDataSorted();
+                ArrayList<Station> st = p.getStationArr();
+                Log.d("SIZE", st.size() + "");
+                for (Station s : st) {
+                    Log.d("info", s.getName() + " " + s.getArrive());
+//                    Log.d("end", s.getArrive());
+//                    Log.d("time", s.getTime() + "");
+//                    Log.d("dis", s.getDistance() + "");
+//                    Log.d("cost", s.getCost() + "");
+                }
+            }
+        }, 1000);
 
 
         button1 = (Button) findViewById(R.id.button1);

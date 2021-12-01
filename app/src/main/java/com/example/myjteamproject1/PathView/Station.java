@@ -2,12 +2,13 @@ package com.example.myjteamproject1.PathView;
 
 public class Station {
     private String station_name;
+    private String arrival_station;
     private String cost;
     private String time;
     private String distance;
     private int line;
 
-    public Station(String name, String c, String t, String d, int l){
+    public Station(String name, String c, String t, String d, int l) {
         station_name = name;
         cost = c;
         time = t;
@@ -15,19 +16,36 @@ public class Station {
         line = l;
     }
 
-    public  String getName(){
+    public Station(int name, int arrival_station, int c, int t, int d, int l) {
+        station_name = name + "";
+        this.arrival_station = arrival_station + "";
+        cost = c + "";
+        time = t + "";
+        distance = d + "";
+        line = l;
+    }
+
+    public String getName() {
         return station_name;
     }
 
-    public int getTime(){
+    public String getArrive() {
+        return arrival_station;
+    }
+
+    public int getTime() {
         return Integer.parseInt(time);
     }
 
-    public int getCost(){
+    public int getCost() {
         return Integer.parseInt(cost);
     }
 
-    public int getLine(){
+    public int getLine() {
         return line;
+    }
+
+    public int getDistance() {
+        return Integer.parseInt(distance);
     }
 }

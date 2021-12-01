@@ -1,28 +1,27 @@
 package com.example.myjteamproject1.PathFinder;
 
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.example.myjteamproject1.MainView.LoadingDialog;
-import com.example.myjteamproject1.PathView.PathActivity;
-import com.example.myjteamproject1.PathView.StationRequest;
+import com.example.myjteamproject1.PathView.Station;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -33,6 +32,10 @@ public class PathFinder extends AppCompatActivity {
     static ArrayList<Tuple>[] adj = new ArrayList[2000];
     static boolean b = false;
 
+    private Queue<Integer> pathArr;
+    private Queue<Integer> pathArrClone;
+    private ArrayList<Station> returnStations;
+
     public PathFinder(int start, int end, int type, Context context) {
         /*
         type = 0 시간순
@@ -40,11 +43,13 @@ public class PathFinder extends AppCompatActivity {
         type = 2 비용순
         ->enum으로 변경
          */
+
         if (b == false) {
             setUpStation(0, context);
             b = !b;
-        }
-        else{
+        } else {
+            returnStations = new ArrayList<>();
+            pathArr = new LinkedList<>();
             int K = start;
             int N = end; //시작역 , 도착역 입력
             K--;
@@ -114,19 +119,61 @@ public class PathFinder extends AppCompatActivity {
             while (!st.empty()) {
                 if (prev_line != st.peek().y) { // 호선 정보가 달라지면 환승을 알린다.
                     //System.out.print("\n" + st.peek().y + "호선 ");
-                    Log.d("1",st.peek().y+"호선 ");
+                    //Log.d("1", st.peek().y + "호선 ");
                     prev_line = st.peek().y;
+                    pathArr.add(st.peek().y);
                 }
                 //System.out.print(st.peek().x + " ");
-                Log.d("2",st.peek().x + " ");
+                //Log.d("2", st.peek().x + " ");
+                pathArr.add(st.peek().x);
                 st.pop();
             }
             // System.out.println("\n최단시간 " + dist[N]);
-            Log.d("3","최단시간 " + dist[N]);
+            // Log.d("3", "최단시간 " + dist[N]);
+
+            pathArrClone = new LinkedList<>(pathArr);
+            while (!pathArr.isEmpty()) {
+                if (pathArr.size() < 2)
+                    break;
+                int s = pathArr.poll();
+                int e = pathArr.peek();
+                setStationListInfo(s, e, context, false);
+            }
+
         }
     }
 
-    public void setUpStation(int type, Context context) {
+    public void setDataSorted() {
+        //순서 이상한 데이터 swap..
+        int i = 0;
+        while (!pathArrClone.isEmpty()) {
+            if (pathArrClone.size() < 2)
+                break;
+            int s = pathArrClone.poll();
+            int e = pathArrClone.peek();
+            //  Log.d("SORT", s + " " + e);
+            if (!returnStations.get(i).getName().equals(Integer.toString(s)) && !returnStations.get(i).getArrive().equals(Integer.toString(e))) {
+                int j = 0;
+                for (Station ST : returnStations) {
+                    if (ST.getName().equals(Integer.toString(s)) && ST.getArrive().equals(Integer.toString(e))) {
+                        Station temp = ST;
+                        ST = returnStations.get(i);
+                        returnStations.set(i, temp);
+                        returnStations.set(j, ST);
+                        break;
+                    }
+                    j++;
+                }
+            }
+            i++;
+        }
+    }
+
+    public ArrayList<Station> getStationArr() {
+        return returnStations;
+    }
+
+    private void setUpStation(int type, Context context) {
         for (int i = 0; i < MAX_V; i++)
             adj[i] = new ArrayList<>();
         getAllStationDataToTuple(type, context);
@@ -165,6 +212,7 @@ public class PathFinder extends AppCompatActivity {
                 }
             }
         };
+
         Scanner scan = null;
         InputStream is = null;
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -182,6 +230,41 @@ public class PathFinder extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setStationListInfo(int start, int end, Context context, Boolean isReverse) {
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if (success) {
+                        int startData, endData;
+                        if (isReverse) {
+                            startData = jsonObject.getInt("endData");
+                            endData = jsonObject.getInt("startData");
+                        } else {
+                            startData = jsonObject.getInt("startData");
+                            endData = jsonObject.getInt("endData");
+                        }
+                        int timeData = jsonObject.getInt("timeData");
+                        int DistanceData = jsonObject.getInt("distanceData");
+                        int costData = jsonObject.getInt("costData");
+                        Station st = new Station(startData, endData, costData, timeData, DistanceData, 1);
+                        returnStations.add(st);
+                    } else {
+                        //역방향..
+                        setStationListInfo(end, start, context, true);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StationRequest loginRequest = new StationRequest(start + "", end + "", responseListener);
+        queue.add(loginRequest);
     }
 
     static class pair implements Comparable<pair> {
