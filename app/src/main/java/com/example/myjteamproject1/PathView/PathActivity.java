@@ -1,21 +1,37 @@
 package com.example.myjteamproject1.PathView;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Path;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.example.myjteamproject1.MainView.LoadingDialog;
 import com.example.myjteamproject1.PathFinder.PathFinder;
+import com.example.myjteamproject1.PathFinder.Tuple;
 import com.example.myjtest.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class PathActivity extends AppCompatActivity {
     Button button1, button2, button3, done, set;
@@ -25,10 +41,9 @@ public class PathActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
-        setContentView(R.layout.path_activity);
 
         loadingDialog = new LoadingDialog(this);
-        loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         loadingDialog.show();
 
         Intent intent = getIntent();
@@ -41,33 +56,39 @@ public class PathActivity extends AppCompatActivity {
             @Override
             public void run() {
                 loadingDialog.dismiss();
+
                 p.setDataSorted();
                 ArrayList<Station> st = p.getStationArr();
+
                 Log.d("SIZE", st.size() + "");
                 for (Station s : st) {
                     Log.d("info", s.getName() + " " + s.getArrive());
-//                  Log.d("end", s.getArrive());
-//                  Log.d("time", s.getTime() + "");
-//                  Log.d("dis", s.getDistance() + "");
-//                  Log.d("cost", s.getCost() + "");
+                    Log.d("time", s.getTime() + "");
+                    Log.d("dis", s.getDistance() + "");
+                    Log.d("cost", s.getCost() + "");
                 }
+
+                PathView.test = st;
+
+                setContentView(R.layout.path_activity);
+
+                button1 = (Button) findViewById(R.id.button1);
+                button2 = (Button) findViewById(R.id.btn_3);
+                button3 = (Button) findViewById(R.id.button3);
+                done = (Button) findViewById(R.id.done);
+                set = (Button) findViewById(R.id.setting);
+
+                button1.setBackgroundColor(Color.GRAY);
+                button2.setBackgroundColor(Color.BLACK);
+                button3.setBackgroundColor(Color.BLACK);
+                done.setBackgroundColor(Color.BLACK);
+                set.setBackgroundColor(Color.BLACK);
+
+                button3.setText("확대");
+
             }
         }, 1000);
-
-
-        button1 = (Button) findViewById(R.id.button1);
-        button2 = (Button) findViewById(R.id.btn_3);
-        button3 = (Button) findViewById(R.id.button3);
-        done = (Button) findViewById(R.id.done);
-        set = (Button) findViewById(R.id.setting);
-
-        button1.setBackgroundColor(Color.GRAY);
-        button2.setBackgroundColor(Color.BLACK);
-        button3.setBackgroundColor(Color.BLACK);
-        done.setBackgroundColor(Color.BLACK);
-        set.setBackgroundColor(Color.BLACK);
-
-        button3.setText("확대");
+        //st배열 배열사용해서 View로 넘겨주면 댐..
     }
 
     public void pressButton1(View view) {
@@ -113,4 +134,5 @@ public class PathActivity extends AppCompatActivity {
     public void done(View view) {
         finish();
     }
+
 }
