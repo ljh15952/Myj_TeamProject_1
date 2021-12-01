@@ -39,8 +39,7 @@ public class PathActivity extends AppCompatActivity {
         setContentView(R.layout.path_activity);
 
         //101과 102는 임시
-        PathFinder p = new PathFinder(101, 102, 0, PathActivity.this);
-
+        PathFinder p = new PathFinder(101, 622, 0, PathActivity.this);
 
 
         button1 = (Button) findViewById(R.id.button1);
