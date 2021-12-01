@@ -1,40 +1,25 @@
 package com.example.myjteamproject1.PathView;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Path;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
 import com.example.myjteamproject1.MainView.LoadingDialog;
 import com.example.myjteamproject1.PathFinder.PathFinder;
-import com.example.myjteamproject1.PathFinder.Tuple;
 import com.example.myjtest.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class PathActivity extends AppCompatActivity {
     Button button1, button2, button3, done, set;
+    PathView view;
 
     LoadingDialog loadingDialog;
 
@@ -62,10 +47,10 @@ public class PathActivity extends AppCompatActivity {
                 Log.d("SIZE", st.size() + "");
                 for (Station s : st) {
                     Log.d("info", s.getName() + " " + s.getArrive());
-//                    Log.d("end", s.getArrive());
-//                    Log.d("time", s.getTime() + "");
-//                    Log.d("dis", s.getDistance() + "");
-//                    Log.d("cost", s.getCost() + "");
+//                  Log.d("end", s.getArrive());
+//                  Log.d("time", s.getTime() + "");
+//                  Log.d("dis", s.getDistance() + "");
+//                  Log.d("cost", s.getCost() + "");
                 }
             }
         }, 1000);
@@ -129,5 +114,4 @@ public class PathActivity extends AppCompatActivity {
     public void done(View view) {
         finish();
     }
-
 }

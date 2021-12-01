@@ -53,7 +53,8 @@ public class pathViewActivity extends Activity {
     private ArrayList<Stations> list;
 
     LoadingDialog loadingDialog;
-    Canvas canvas;
+    private String startStation;
+    private String endStation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class pathViewActivity extends Activity {
         tv_s = (TextView) findViewById(R.id.tv_start);
         tv_e = (TextView) findViewById(R.id.tv_end);
         tv_c = findViewById(R.id.tv_choice);
-        goPath_button = findViewById(R.id.button2);
+        goPath_button = findViewById(R.id.btn_3);
 
         list = new ArrayList<>();
         setAllStationInfo();
@@ -88,6 +89,7 @@ public class pathViewActivity extends Activity {
         btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startStation = clickedStaion.name + "";
                 tv_s.setText(clickedStaion.name + "");
                 btn_1.setVisibility(View.INVISIBLE);
                 btn_2.setVisibility(View.INVISIBLE);
@@ -99,6 +101,8 @@ public class pathViewActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), PathActivity.class);
+                intent.putExtra("startStation", startStation);
+                intent.putExtra("endStation", endStation);
                 startActivity(intent);
             }
         });
@@ -106,6 +110,7 @@ public class pathViewActivity extends Activity {
         btn_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                endStation = clickedStaion.name + "";
                 tv_e.setText(clickedStaion.name + "");
                 btn_1.setVisibility(View.INVISIBLE);
                 btn_2.setVisibility(View.INVISIBLE);
