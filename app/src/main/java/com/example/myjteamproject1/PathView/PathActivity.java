@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 public class PathActivity extends AppCompatActivity {
     Button button1, button2, button3, done, set;
-    PathView view;
 
     LoadingDialog loadingDialog;
 
