@@ -1,40 +1,26 @@
 package com.example.myjteamproject1.PathView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Path;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
 import com.example.myjteamproject1.MainView.LoadingDialog;
+import com.example.myjteamproject1.Menu.MenusActivity;
 import com.example.myjteamproject1.PathFinder.PathFinder;
-import com.example.myjteamproject1.PathFinder.Tuple;
 import com.example.myjtest.R;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class PathActivity extends AppCompatActivity {
     Button time, cost, distance, button3, done, set;
+    Button menu;
 
     LoadingDialog loadingDialog;
 
@@ -77,14 +63,14 @@ public class PathActivity extends AppCompatActivity {
                 distance = (Button) findViewById(R.id.distance_btn);
                 button3 = (Button) findViewById(R.id.button3);
                 done = (Button) findViewById(R.id.done);
-                set = (Button) findViewById(R.id.setting);
+                menu = (Button) findViewById(R.id.menu);
 
                 time.setBackgroundColor(Color.GRAY);
                 cost.setBackgroundColor(Color.BLACK);
                 distance.setBackgroundColor(Color.BLACK);
                 button3.setBackgroundColor(Color.BLACK);
                 done.setBackgroundColor(Color.BLACK);
-                set.setBackgroundColor(Color.BLACK);
+                menu.setBackgroundColor(Color.BLACK);
 
                 button3.setText("확대");
 
@@ -149,4 +135,8 @@ public class PathActivity extends AppCompatActivity {
         finish();
     }
 
+    public void onMenu(View view){
+        Intent intent = new Intent(getApplicationContext(), MenusActivity.class);
+        startActivity(intent);
+    }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.myjteamproject1.Menu.MenusActivity">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="right">
+
+        <LinearLayout
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:gravity="right">
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:text="X"
+                android:id="@+id/done"
+                android:layout_marginRight="10dp"/>
+        </LinearLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:id="@+id/setting"
+            android:text="SET"/>
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:id="@+id/bookmark"
+            android:layout_marginLeft="41dp"
+            android:text="BOOKMARK"/>
+
+        <Button
+            android:id="@+id/transfer"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="41dp"
+            android:layout_marginTop="0dp"
+            android:text="TRANSFER" />
+    </TableRow>
+</TableLayout>

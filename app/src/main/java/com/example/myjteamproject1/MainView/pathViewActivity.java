@@ -27,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.example.myjteamproject1.Menu.MenusActivity;
 import com.example.myjteamproject1.PathView.PathActivity;
 import com.example.myjtest.R;
 
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class pathViewActivity extends Activity {
+public class pathViewActivity extends AppCompatActivity {
     SubsamplingScaleImageView imageView;
     GestureDetector gestureDetector = null;
 
@@ -71,6 +72,11 @@ public class pathViewActivity extends Activity {
         tv_c = findViewById(R.id.tv_choice);
         goPath_button = findViewById(R.id.btn_3);
 
+        btn_1.setBackgroundColor(Color.DKGRAY);
+        btn_2.setBackgroundColor(Color.DKGRAY);
+        setting.setBackgroundColor(Color.DKGRAY);
+        goPath_button.setBackgroundColor(Color.DKGRAY);
+
         list = new ArrayList<>();
         setAllStationInfo();
 
@@ -90,7 +96,7 @@ public class pathViewActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startStation = clickedStaion.name + "";
-                tv_s.setText(clickedStaion.name + "");
+                tv_s.setText(clickedStaion.name + " 번");
                 btn_1.setVisibility(View.INVISIBLE);
                 btn_2.setVisibility(View.INVISIBLE);
                 tv_c.setVisibility(View.INVISIBLE);
@@ -111,7 +117,7 @@ public class pathViewActivity extends Activity {
             @Override
             public void onClick(View v) {
                 endStation = clickedStaion.name + "";
-                tv_e.setText(clickedStaion.name + "");
+                tv_e.setText(clickedStaion.name + " 번");
                 btn_1.setVisibility(View.INVISIBLE);
                 btn_2.setVisibility(View.INVISIBLE);
                 tv_c.setVisibility(View.INVISIBLE);
@@ -204,5 +210,10 @@ public class pathViewActivity extends Activity {
             DataRequest Request = new DataRequest(i + "", responseListener);
             queue.add(Request);
         }
+    }
+
+    public void onMenu(View view){
+        Intent intent = new Intent(getApplicationContext(), MenusActivity.class);
+        startActivity(intent);
     }
 }
