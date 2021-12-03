@@ -1,8 +1,10 @@
 package com.example.myjteamproject1.Menu;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -17,18 +19,22 @@ import com.example.myjtest.R;
 public class SettingActivity extends AppCompatActivity {
     Button done;
     Switch darkswitch;
+
     @Override
     protected void onCreate(Bundle savedInstance) {
+        super.onCreate(savedInstance);
+        setContentView(R.layout.setting_activity);
+        darkswitch = (Switch) findViewById(R.id.darkswitch);
+
 
         //야간 모드 확인
         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
             //다크모드가 체크돼있을때 다크모드로 바꾸기
             setTheme(R.style.Theme_Dark);
+            darkswitch.setChecked(true);
         }else{
             setTheme(R.style.Theme_Light);
         }
-        super.onCreate(savedInstance);
-        setContentView(R.layout.setting_activity);
 
         done = (Button) findViewById(R.id.done);
         done.setBackgroundColor(Color.DKGRAY);
@@ -40,10 +46,8 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        darkswitch = findViewById(R.id.darkswitch);
-
         SharedPreferences sharedPreferences = getSharedPreferences("save",MODE_PRIVATE);
-        darkswitch.setChecked(sharedPreferences.getBoolean("value",true));
+        //darkswitch.setChecked(sharedPreferences.getBoolean("value",true));
         darkswitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,8 +68,5 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
-
-
 }

@@ -3,17 +3,89 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.myjteamproject1.Menu.TransferActivity">
+    tools:context="com.example.myjteamproject1.Menu.TransferActivity"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:gravity="right">
+        <LinearLayout
+            android:layout_width="353dp"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:text="english"
+                android:textSize="15dp"
+                android:id="@+id/english"/>
+            <Button
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:text="ภาษาไทย"
+                android:textSize="15dp"
+                android:id="@+id/thai"/>
+            <Button
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:text="español"
+                android:textSize="15dp"
+                android:id="@+id/spanish"/>
+            <Button
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:text="Русский"
+                android:textSize="15dp"
+                android:id="@+id/russian"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp">
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:text="X"
+                android:id="@+id/done"
+                android:layout_marginRight="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="550dp">
+
+        <com.example.myjteamproject1.Menu.TransferView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="더 알아보기>"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:textSize="25dp"
+            android:textColor="@color/black"/>
         <Button
-            android:layout_width="50dp"
+            android:layout_width="70dp"
             android:layout_height="match_parent"
-            android:text="X"
-            android:id="@+id/done"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginLeft="95dp"
+            android:id="@+id/papago"
+            android:text="papago"
+            android:textSize="8dp"/>
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/google"
+            android:text="google"
+            android:textSize="8dp"/>
     </LinearLayout>
 </LinearLayout>

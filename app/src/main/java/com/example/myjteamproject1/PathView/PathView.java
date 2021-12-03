@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class PathView extends View {
     int tx, ty = 200;
     int radius = 100;
+    boolean time_full = false;
     Paint p_sub_info;
     Paint p_main_info;
     Paint p_info;
@@ -48,7 +49,7 @@ public class PathView extends View {
         textSize = radius / 2;
         p_main_info = new Paint();
         p_main_info.setColor(Color.BLACK);
-        p_main_info.setTextSize(textSize * 5 / 3);
+        p_main_info.setTextSize(textSize);
         p_sub_info = new Paint();
         p_sub_info.setColor(Color.BLACK);
         p_sub_info.setTextSize(textSize);
@@ -73,8 +74,8 @@ public class PathView extends View {
         ny = ty;
 
         ArrayList<ArrayList<Station>> station = new ArrayList<ArrayList<Station>>();
-        ArrayList<Station> s = new ArrayList<>();
         ArrayList<Station> t = new ArrayList<>();
+        ArrayList<Station> c = new ArrayList<>();
         ArrayList<Station> d = new ArrayList<>();
 
 //        s.add(new Station("102", "30", "10", "50", 1));
@@ -84,14 +85,14 @@ public class PathView extends View {
 //        s.add(new Station("304", "0", "0", "0", 0));
 
         for (Station st : timeStations) {
-            s.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
-        }
-        s.add(new Station(timeStations.get(timeStations.size() - 1).getArrive(), "0", "0", "0", 0));
-
-        for (Station st : costStations) {
             t.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
         }
-        t.add(new Station(costStations.get(costStations.size() - 1).getArrive(), "0", "0", "0", 0));
+        t.add(new Station(timeStations.get(timeStations.size() - 1).getArrive(), "0", "0", "0", 0));
+
+        for (Station st : costStations) {
+            c.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
+        }
+        c.add(new Station(costStations.get(costStations.size() - 1).getArrive(), "0", "0", "0", 0));
 
         for (Station st : distanceStations) {
             d.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
@@ -100,8 +101,8 @@ public class PathView extends View {
 
        // t.add(new Station("101", "30", "10", "50", 1));
         //t.add(new Station("102", "0", "0", "0", 0));
-        station.add(s);
         station.add(t);
+        station.add(c);
         station.add(d);
         this.setPathWay(station);
 
@@ -143,6 +144,8 @@ public class PathView extends View {
         int nx = radius * 2;
         int num = 0, sub = 1;
         String unit = "", info = "";
+        String major_info = "";
+        String sub_info = "";
 
         //draw text about information
         for (String str : result.get(type)) {
@@ -163,6 +166,18 @@ public class PathView extends View {
                     info = "소요 비용";
                     unit = "원";
                     break;
+            }
+            if(num == 0){
+                if(time_full == true){
+                    int time = Integer.parseInt(str);
+                    int min = time/100;
+                    int sec = time%100;
+                    if(sec == 0) {
+                        unit = "";
+                        str = Integer.toString(min) + "분";
+                    }else
+                        str = Integer.toString(min) + "분" + Integer.toString(sec);
+                }
             }
             if (num == type) {
                 canvas.drawText(info, nx - 50 - 40, ny - 100, p_info);
@@ -240,24 +255,16 @@ public class PathView extends View {
             //get cost result
             cost += s.getCost();
         }
+        if(time >= 60){
+            int min = time/60;
+            int sec = time%60;
+            time = min*100 + sec;
+            time_full = true;
+        }
+        else
+            time_full = false;
         result.get(num).add(Integer.toString(time));
         result.get(num).add(Integer.toString(trans));
         result.get(num).add(Integer.toString(cost));
     }
-
-    /*
-    @Override
-    public void onDraw(Canvas canvas){
-        int nx = radius*2, ny = ty;
-        String str = "101";
-        int length;
-        for(int i = 0; i< 5; i++){
-            length = str.length() * 33;
-            canvas.drawCircle(nx, ny, radius, p);
-            canvas.drawText(str,nx - length/2 + 10, ny + 20, p1);
-            ny += radius*3;
-        }
-        invalidate();
-    }
-     */
 }
