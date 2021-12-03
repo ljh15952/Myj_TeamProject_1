@@ -152,19 +152,19 @@ public class PathView extends View {
             switch (num) {
                 case 0:
                     info = "소요시간";
-                    unit = "초";
+                    unit = "초/";
                     break;
                 case 1:
                     info = "환승역";
                     if (str.equals("0")) {
-                        unit = "없음";
+                        unit = "없음/";
                         str = "";
                     } else
-                        unit = "개";
+                        unit = "개/";
                     break;
                 case 2:
                     info = "소요 비용";
-                    unit = "원";
+                    unit = "원/";
                     break;
             }
             if(num == 0){
@@ -173,7 +173,7 @@ public class PathView extends View {
                     int min = time/100;
                     int sec = time%100;
                     if(sec == 0) {
-                        unit = "";
+                        unit = "/";
                         str = Integer.toString(min) + "분";
                     }else
                         str = Integer.toString(min) + "분" + Integer.toString(sec);
@@ -183,8 +183,20 @@ public class PathView extends View {
                 canvas.drawText(info, nx - 50 - 40, ny - 100, p_info);
                 canvas.drawText(str + unit, nx - 50 - 40, ny, p_main_info);
             } else {
-                canvas.drawText(info, nx + 200 * sub - 40, ny - 100, p_info);
-                canvas.drawText(str + unit, nx + 200 * sub - 40, ny, p_sub_info);
+                int gap = 0;
+                if (num == 0)
+                    gap = 160;
+                else
+                    gap = 200;
+                canvas.drawText(info, nx + gap * sub - 40, ny - 100, p_info);
+                int gap_s = 40;
+                if(type == 0)
+                    gap_s = 40;
+                else if(sub == 1)
+                    gap_s = 70;
+                else
+                    gap_s = 30;
+                canvas.drawText(str + unit, nx + gap * sub - gap_s, ny, p_sub_info);
                 sub++;
             }
             num++;
