@@ -35,7 +35,10 @@ public class PathView extends View {
     ArrayList<ArrayList<Station>> list;
     ArrayList<ArrayList<String>> result;
 
-    static ArrayList<Station> test;
+    static ArrayList<Station> timeStations;
+    static ArrayList<Station> costStations;
+    static ArrayList<Station> distanceStations;
+
     static int type;
     static int screen;
     static int ny;
@@ -79,23 +82,23 @@ public class PathView extends View {
 //        s.add(new Station("202", "5", "20", "5", 3));
 //        s.add(new Station("304", "0", "0", "0", 0));
 
-        for (Station st : test) {
-            s.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", 1));
+        for (Station st : timeStations) {
+            s.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
         }
-        s.add(new Station(test.get(test.size() - 1).getArrive(), "0", "0", "0", 0));
+        s.add(new Station(timeStations.get(timeStations.size() - 1).getArrive(), "0", "0", "0", 0));
 
-        t.add(new Station("101", "30", "10", "50", 1));
-        t.add(new Station("102", "0", "0", "0", 0));
+        for (Station st : costStations) {
+            t.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
+        }
+        t.add(new Station(costStations.get(costStations.size() - 1).getArrive(), "0", "0", "0", 0));
+
+       // t.add(new Station("101", "30", "10", "50", 1));
+        //t.add(new Station("102", "0", "0", "0", 0));
         station.add(s);
         station.add(t);
         this.setPathWay(station);
 
     }
-
-    public void start() {
-
-    }
-
 
     public void setPathWay(ArrayList<ArrayList<Station>> station_list) {
         list = station_list;

@@ -12,6 +12,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myjteamproject1.MainView.LoadingDialog;
+import com.example.myjteamproject1.MainView.MainActivity;
 import com.example.myjteamproject1.Menu.MenusActivity;
 import com.example.myjteamproject1.PathFinder.PathFinder;
 import com.example.myjtest.R;
@@ -24,6 +25,8 @@ public class PathActivity extends AppCompatActivity {
 
     LoadingDialog loadingDialog;
 
+    int start,end;
+
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
@@ -33,28 +36,44 @@ public class PathActivity extends AppCompatActivity {
         loadingDialog.show();
 
         Intent intent = getIntent();
-        int start = Integer.parseInt(intent.getStringExtra("startStation"));
-        int end = Integer.parseInt(intent.getStringExtra("endStation"));
-        PathFinder p = new PathFinder(start, end, 0, PathActivity.this);
+        start = Integer.parseInt(intent.getStringExtra("startStation"));
+        end = Integer.parseInt(intent.getStringExtra("endStation"));
+        //PathFinder p = new PathFinder(start, end, 0, PathActivity.this);
+        //PathFinder p2 = new PathFinder(start, end, 1, PathActivity.this);
+
+        PathFinder p1 = MainActivity.p1;
+        p1.Algorithm(start,end);
+
+        PathFinder p2 = MainActivity.p2;
+        p2.Algorithm(start,end);
+
+        PathFinder p3 = MainActivity.p3;
+        p3.Algorithm(start,end);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 loadingDialog.dismiss();
+                p1.setDataSorted();
+                p2.setDataSorted();
+                p3.setDataSorted();
 
-                p.setDataSorted();
-                ArrayList<Station> st = p.getStationArr();
+                ArrayList<Station> st1 = p1.getStationArr();
+                ArrayList<Station> st2 = p2.getStationArr();
+                ArrayList<Station> st3 = p3.getStationArr();
 
-                Log.d("SIZE", st.size() + "");
-                for (Station s : st) {
-                    Log.d("info", s.getName() + " " + s.getArrive());
-                    Log.d("time", s.getTime() + "");
-                    Log.d("dis", s.getDistance() + "");
-                    Log.d("cost", s.getCost() + "");
-                }
+//                Log.d("SIZE", st.size() + "");
+//                for (Station s : st) {
+//                    Log.d("info", s.getName() + " " + s.getArrive());
+//                    Log.d("time", s.getTime() + "");
+//                    Log.d("dis", s.getDistance() + "");
+//                    Log.d("cost", s.getCost() + "");
+//                }
 
-                PathView.test = st;
+                PathView.timeStations = st1;
+                PathView.costStations = st2;
+                PathView.distanceStations = st3;
 
                 setContentView(R.layout.path_activity);
 
@@ -75,7 +94,7 @@ public class PathActivity extends AppCompatActivity {
                 button3.setText("확대");
 
             }
-        }, 1000);
+        }, 2000);
         //st배열 배열사용해서 View로 넘겨주면 댐..
     }
 
