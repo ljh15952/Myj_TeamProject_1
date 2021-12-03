@@ -45,31 +45,46 @@ public class TransferActivity extends AppCompatActivity {
         language.add(spanish);
         language.add(russian);
 
+        TransferView.type = TransferData.ENG;
+        TransferView.choice = -1;
+
         english.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setButtonColor(0);
+                if(TransferView.choice == -1) {
+                    setButtonColor(0);
+                    TransferView.type = TransferData.ENG;
+                }
             }
         });
 
         thai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setButtonColor(1);
+                if(TransferView.choice == -1) {
+                    setButtonColor(1);
+                    TransferView.type = TransferData.THAI;
+                }
             }
         });
 
         spanish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setButtonColor(2);
+                if(TransferView.choice == -1) {
+                    setButtonColor(2);
+                    TransferView.type = TransferData.SPN;
+                }
             }
         });
 
         russian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setButtonColor(3);
+                if(TransferView.choice == -1) {
+                    setButtonColor(3);
+                    TransferView.type = TransferData.RUS;
+                }
             }
         });
 
