@@ -10,7 +10,7 @@
         android:label="findView"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MYJTEST"
+        android:theme="@style/Theme.Light"
         android:usesCleartextTraffic="true">
         <activity
             android:name="com.example.myjteamproject1.MainView.pathViewActivity"

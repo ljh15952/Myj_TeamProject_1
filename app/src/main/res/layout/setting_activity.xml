@@ -1,19 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     tools:context="com.example.myjteamproject1.Menu.SettingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="right">
+        android:gravity="left">
+
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_baseline_settings_24" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="setting"
+            android:textSize="30sp" />
+
         <Button
+            android:id="@+id/done"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:text="X"
-            android:id="@+id/done"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="X" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/Darkbutton"
+            android:layout_width="312dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="야간모드"
+            android:textSize="40sp" />
+
+        <Switch
+            android:id="@+id/darkswitch"
+            android:layout_width="98dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:text="ON/OFF"></Switch>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"/>
+
 </LinearLayout>

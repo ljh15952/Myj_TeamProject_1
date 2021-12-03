@@ -10,4 +10,6 @@
     <color name="gray_400">#424242</color>
     <color name="gray_200">#6E6E6E</color>
     <color name="gray_300">#585858</color>
+    <color name="blue">#0FB5EC</color>
+    <color name="darkblue">#08536C</color>
 </resources>
