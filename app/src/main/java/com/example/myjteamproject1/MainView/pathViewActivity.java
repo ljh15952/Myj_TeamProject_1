@@ -54,8 +54,8 @@ public class pathViewActivity extends AppCompatActivity {
     private ArrayList<Stations> list;
 
     LoadingDialog loadingDialog;
-    private String startStation;
-    private String endStation;
+    private String startStation = null;
+    private String endStation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +106,10 @@ public class pathViewActivity extends AppCompatActivity {
         goPath_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(startStation == null || endStation == null){
+                    Toast.makeText(getApplicationContext(), "출발역과 도착역 모두 선택해주세요!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent = new Intent(getApplicationContext(), PathActivity.class);
                 intent.putExtra("startStation", startStation);
                 intent.putExtra("endStation", endStation);
