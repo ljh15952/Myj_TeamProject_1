@@ -75,6 +75,7 @@ public class PathView extends View {
         ArrayList<ArrayList<Station>> station = new ArrayList<ArrayList<Station>>();
         ArrayList<Station> s = new ArrayList<>();
         ArrayList<Station> t = new ArrayList<>();
+        ArrayList<Station> d = new ArrayList<>();
 
 //        s.add(new Station("102", "30", "10", "50", 1));
 //        s.add(new Station("101", "10", "20", "40", 2));
@@ -92,10 +93,16 @@ public class PathView extends View {
         }
         t.add(new Station(costStations.get(costStations.size() - 1).getArrive(), "0", "0", "0", 0));
 
+        for (Station st : distanceStations) {
+            d.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
+        }
+        d.add(new Station(distanceStations.get(distanceStations.size() - 1).getArrive(), "0", "0", "0", 0));
+
        // t.add(new Station("101", "30", "10", "50", 1));
         //t.add(new Station("102", "0", "0", "0", 0));
         station.add(s);
         station.add(t);
+        station.add(d);
         this.setPathWay(station);
 
     }

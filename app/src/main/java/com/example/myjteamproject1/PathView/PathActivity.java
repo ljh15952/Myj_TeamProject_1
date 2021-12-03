@@ -94,7 +94,7 @@ public class PathActivity extends AppCompatActivity {
                 button3.setText("확대");
 
             }
-        }, 2000);
+        }, 3000);
         //st배열 배열사용해서 View로 넘겨주면 댐..
     }
 
