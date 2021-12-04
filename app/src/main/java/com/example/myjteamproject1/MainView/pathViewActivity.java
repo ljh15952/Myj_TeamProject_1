@@ -45,17 +45,24 @@ public class pathViewActivity extends AppCompatActivity {
     private Stations clickedStaion;
     private Button btn_1;
     private Button btn_2;
+    private Button btn_3;
+
     private Button setting;
     private Button goPath_button;
+    private Button reset_button;
 
     private TextView tv_s;
     private TextView tv_e;
+    private TextView tv_f;
+
     private TextView tv_c;
     private ArrayList<Stations> list;
 
     LoadingDialog loadingDialog;
     private String startStation = null;
     private String endStation = null;
+    private String transferStation = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +73,16 @@ public class pathViewActivity extends AppCompatActivity {
 
         btn_1 = findViewById(R.id.btn_1);
         btn_2 = findViewById(R.id.btn_2);
+        btn_3 = findViewById(R.id.btn_3);
+
         setting = findViewById(R.id.setting);
         tv_s = (TextView) findViewById(R.id.tv_start);
         tv_e = (TextView) findViewById(R.id.tv_end);
+        tv_f = (TextView) findViewById(R.id.tv_transfer);
+
         tv_c = findViewById(R.id.tv_choice);
-        goPath_button = findViewById(R.id.btn_3);
+        goPath_button = findViewById(R.id.goPath);
+        reset_button = findViewById(R.id.btn_reset);
 
         btn_1.setBackgroundColor(Color.DKGRAY);
         btn_2.setBackgroundColor(Color.DKGRAY);
@@ -83,6 +95,19 @@ public class pathViewActivity extends AppCompatActivity {
         loadingDialog = new LoadingDialog(this);
         loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         loadingDialog.show();
+
+
+        reset_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String startStation = null;
+                String endStation = null;
+                String transferStation = null;
+                tv_s.setText("");
+                tv_e.setText("");
+                tv_f.setText("");
+            }
+        });
 
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -99,6 +124,7 @@ public class pathViewActivity extends AppCompatActivity {
                 tv_s.setText(clickedStaion.name + " 번");
                 btn_1.setVisibility(View.INVISIBLE);
                 btn_2.setVisibility(View.INVISIBLE);
+                btn_3.setVisibility(View.INVISIBLE);
                 tv_c.setVisibility(View.INVISIBLE);
             }
         });
@@ -106,13 +132,14 @@ public class pathViewActivity extends AppCompatActivity {
         goPath_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(startStation == null || endStation == null){
+                if (startStation == null || endStation == null) {
                     Toast.makeText(getApplicationContext(), "출발역과 도착역 모두 선택해주세요!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Intent intent = new Intent(getApplicationContext(), PathActivity.class);
                 intent.putExtra("startStation", startStation);
                 intent.putExtra("endStation", endStation);
+                intent.putExtra("transferStation", transferStation);
                 startActivity(intent);
             }
         });
@@ -124,6 +151,19 @@ public class pathViewActivity extends AppCompatActivity {
                 tv_e.setText(clickedStaion.name + " 번");
                 btn_1.setVisibility(View.INVISIBLE);
                 btn_2.setVisibility(View.INVISIBLE);
+                btn_3.setVisibility(View.INVISIBLE);
+                tv_c.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        btn_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                transferStation = clickedStaion.name + "";
+                tv_f.setText(clickedStaion.name + " 번");
+                btn_1.setVisibility(View.INVISIBLE);
+                btn_2.setVisibility(View.INVISIBLE);
+                btn_3.setVisibility(View.INVISIBLE);
                 tv_c.setVisibility(View.INVISIBLE);
             }
         });
@@ -140,6 +180,7 @@ public class pathViewActivity extends AppCompatActivity {
                             clickedStaion = st;
                             btn_1.setVisibility(View.VISIBLE);
                             btn_2.setVisibility(View.VISIBLE);
+                            btn_3.setVisibility(View.VISIBLE);
                             tv_c.setText(st.name + "번 역을 클릭하셨습니다.");
                             tv_c.setVisibility(View.VISIBLE);
                             //Toast.makeText(getApplicationContext(), st.name + " 클릭!!", Toast.LENGTH_SHORT).show();
@@ -166,7 +207,7 @@ public class pathViewActivity extends AppCompatActivity {
                         int y2 = jsonObject.getInt("Y2");
                         Stations st = new Stations(name, x1, y1, x2, y2);
                         list.add(st);
-                        if(list.size() > 50)
+                        if (list.size() > 50)
                             loadingDialog.dismiss();
                     }
                 } catch (JSONException e) {
@@ -216,7 +257,7 @@ public class pathViewActivity extends AppCompatActivity {
         }
     }
 
-    public void onMenu(View view){
+    public void onMenu(View view) {
         Intent intent = new Intent(getApplicationContext(), MenusActivity.class);
         startActivity(intent);
     }

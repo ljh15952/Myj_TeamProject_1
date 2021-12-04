@@ -35,6 +35,7 @@ public class PathFinder extends AppCompatActivity {
     private Queue<Integer> pathArrClone;
     private ArrayList<Station> returnStations;
     private Context context;
+
     public PathFinder(int type, Context context) {
         /*
         type = 0 시간순
@@ -46,15 +47,14 @@ public class PathFinder extends AppCompatActivity {
         this.context = context;
     }
 
-    public void Algorithm(int start,int end,int transfer) {
+    public void Algorithm(int start, int end, int transfer) {
         returnStations = new ArrayList<>();
         pathArr = new LinkedList<>();
         int K = start;
         int N = end; //시작역 , 도착역 입력
-        int VIA;
+        int VIA = 0;
         boolean via_check = false;
-        if(transfer != 0)
-        {
+        if (transfer != 0) {
             VIA = transfer;
             VIA--;
             via_check = true;
@@ -108,37 +108,142 @@ public class PathFinder extends AppCompatActivity {
                 }
             }
         }
-        if(via_check){
+        if (via_check) {
+            int[] via_dist = new int[MAX_V]; // 시작역에서 각 역까지의 거리에 대한 정보를 저장
+            for (int i = 0; i < MAX_V; i++)
+                via_dist[i] = INF; // 초기값은 모든역의 거리를 무한하게 설정
 
-        }
+            pair[] via_prev = new pair[MAX_V]; // 어떤 역들을 거쳐서 왔는지 저장하기 위한 배열 prev
 
-        // 어떠한 경로를 거쳐왔는지 출력
-        int curr = N;
-        Stack<pair> st = new Stack<>(); // 스택을 이용함
-
-        while (prev[curr].x != -1) { // prev 이용
-            st.push(new pair(curr + 1, prev[curr].y));
-            curr = prev[curr].x;
-        }
-
-        st.push(new pair(K + 1, prev[K].y));
-
-        int prev_line = st.peek().y;
-
-        while (!st.empty()) {
-            if (prev_line != st.peek().y) { // 호선 정보가 달라지면 환승을 알린다.
-                //System.out.print("\n" + st.peek().y + "호선 ");
-                //Log.d("1", st.peek().y + "호선 ");
-                prev_line = st.peek().y;
-                pathArr.add(st.peek().y);
+            for (int i = 0; i < MAX_V; i++) {
+                via_prev[i] = new pair(0, 0);
+                via_prev[i].x = -1;
             }
-            //System.out.print(st.peek().x + " ");
-            //Log.d("2", st.peek().x + " ");
-            pathArr.add(st.peek().x);
-            st.pop();
+            boolean[] via_visited = new boolean[MAX_V];
+            for (int i = 0; i < MAX_V; i++)
+                via_visited[i] = false;
+
+            PriorityQueue<pair> via_PQ = new PriorityQueue<>(); // 우선순위 큐 PQ, PQ에는 (시작역에서 지정역 까지의 거리, 지정역 번호) 가 저장된다.
+
+            // 다익스트라 알고리즘
+
+            via_dist[VIA] = 0;
+            via_PQ.add(new pair(0, VIA));
+
+            while (!via_PQ.isEmpty()) {
+                int curr;
+                do {
+                    curr = via_PQ.peek().y;
+                    via_PQ.remove();
+                } while (!via_PQ.isEmpty() && via_visited[curr]); // 이미 방문한 정점이면 한번 더 꺼낸다
+
+                if (via_visited[curr]) break;
+
+                via_visited[curr] = true;
+
+
+                for (Tuple p : adj[curr]) {
+
+                    int next = p.get_first(), d = p.get_second();
+                    //거리가 갱신될 경우 PQ에 새로 넣음
+                    if (via_dist[next] > via_dist[curr] + d) {
+                        via_dist[next] = via_dist[curr] + d;
+                        via_prev[next].x = curr;
+                        via_prev[next].y = p.get_third();
+                        via_PQ.add(new pair(via_dist[next], next));
+                    }
+                }
+            }
+
+            // 3.
+            // 어떠한 경로를 거쳐왔는지 출력
+            int curr = VIA;
+            Stack<pair> st = new Stack<>(); // 스택을 이용함
+
+            while (prev[curr].x != -1) { // prev 이용
+                st.push(new pair(curr + 1, prev[curr].y));
+                curr = prev[curr].x;
+            }
+
+            st.push(new pair(K + 1, prev[K].y));
+
+            int prev_line = st.peek().y;
+
+            while (!st.empty()) {
+                if (prev_line != st.peek().y) { // 호선 정보가 달라지면 환승을 알린다.
+                    //  System.out.print("\n" + st.peek().y + "호선 ");
+                   // Log.d("첫번째Log" , st.peek().y + "");
+                    pathArr.add(st.peek().x);
+                    prev_line = st.peek().y;
+                }
+                // System.out.print(st.peek().x + " ");
+               // Log.d("첫번째 Logg" , st.peek().x + "");
+                pathArr.add(st.peek().x);
+                st.pop();
+            }
+
+            // 4.
+            // 어떠한 경로를 거쳐왔는지 출력
+            int via_curr = N;
+            Stack<pair> via_st = new Stack<>(); // 스택을 이용함
+
+            while (via_prev[via_curr].x != -1) { // prev 이용
+                via_st.push(new pair(via_curr + 1, via_prev[via_curr].y));
+                via_curr = via_prev[via_curr].x;
+            }
+
+            via_st.push(new pair(VIA + 1, via_prev[VIA].y));
+
+            int via_prev_line = via_st.peek().y;
+
+            //한칸 제거 중화가 추가
+            via_st.pop();
+
+            while (!via_st.empty()) {
+                if (via_prev_line != via_st.peek().y) { // 호선 정보가 달라지면 환승을 알린다.
+                    // System.out.print("\n" + via_st.peek().y + "호선 ");
+                    //Log.d("두번째로그" , via_st.peek().y + "");
+                    via_prev_line = via_st.peek().y;
+                    pathArr.add(via_st.peek().y);
+                }
+                // System.out.print(via_st.peek().x + " ");
+                //Log.d("두번째로그그" , via_st.peek().x + "");
+                pathArr.add(via_st.peek().x);
+                via_st.pop();
+            }
+
+            // 5.
+            System.out.println("\n최단시간 " + (dist[VIA] + via_dist[N]));
+        } else {
+            // 어떠한 경로를 거쳐왔는지 출력
+            int curr = N;
+            Stack<pair> st = new Stack<>(); // 스택을 이용함
+
+            while (prev[curr].x != -1) { // prev 이용
+                st.push(new pair(curr + 1, prev[curr].y));
+                curr = prev[curr].x;
+            }
+
+            st.push(new pair(K + 1, prev[K].y));
+
+            int prev_line = st.peek().y;
+
+            while (!st.empty()) {
+                if (prev_line != st.peek().y) { // 호선 정보가 달라지면 환승을 알린다.
+                    //System.out.print("\n" + st.peek().y + "호선 ");
+                    //Log.d("1", st.peek().y + "호선 ");
+                    prev_line = st.peek().y;
+                    pathArr.add(st.peek().y);
+                }
+                //System.out.print(st.peek().x + " ");
+                //Log.d("2", st.peek().x + " ");
+                pathArr.add(st.peek().x);
+                st.pop();
+            }
+            // System.out.println("\n최단시간 " + dist[N]);
+            // Log.d("3", "최단시간 " + dist[N]);
         }
-        // System.out.println("\n최단시간 " + dist[N]);
-        // Log.d("3", "최단시간 " + dist[N]);
+
 
         pathArrClone = new LinkedList<>(pathArr);
         while (!pathArr.isEmpty()) {
