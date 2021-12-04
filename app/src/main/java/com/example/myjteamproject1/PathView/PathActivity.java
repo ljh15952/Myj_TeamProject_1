@@ -15,13 +15,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myjteamproject1.MainView.LoadingDialog;
 import com.example.myjteamproject1.MainView.MainActivity;
+import com.example.myjteamproject1.Menu.BookMarkView;
 import com.example.myjteamproject1.Menu.MenusActivity;
 import com.example.myjteamproject1.PathFinder.PathFinder;
 import com.example.myjtest.R;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -30,12 +33,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PathActivity extends AppCompatActivity {
-    Button time, cost, distance, button3, done, set;
-    Button menu;
+    Button time, cost, distance, button3, done, book;
 
     LoadingDialog loadingDialog;
 
     int start, end, transfer;
+
+    boolean is_book = false;
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
@@ -94,17 +98,36 @@ public class PathActivity extends AppCompatActivity {
                 distance = (Button) findViewById(R.id.distance_btn);
                 button3 = (Button) findViewById(R.id.button3);
                 done = (Button) findViewById(R.id.done);
-                menu = (Button) findViewById(R.id.menu);
+                book = (Button) findViewById(R.id.bookmark);
 
                 time.setBackgroundColor(Color.GRAY);
                 cost.setBackgroundColor(Color.DKGRAY);
                 distance.setBackgroundColor(Color.DKGRAY);
                 button3.setBackgroundColor(Color.BLACK);
                 done.setBackgroundColor(Color.DKGRAY);
-                menu.setBackgroundColor(Color.DKGRAY);
 
                 button3.setText("확대");
 
+                Scanner scan = null;
+                File readFrom = new File(getApplicationContext().getFilesDir(), "Bookmark.txt");
+                try {
+                    scan = new Scanner(readFrom);
+                    while (scan.hasNext()) {
+                        int u = Integer.parseInt(scan.next());
+                        int v = Integer.parseInt(scan.next());
+                        int c = Integer.parseInt(scan.next());
+                        if(u == start && v == end && c == transfer)
+                        {
+                            book.setBackgroundColor(Color.BLUE);
+                            is_book = true;
+                            break;
+                        }
+                    }
+                    if(is_book == false)
+                        book.setBackgroundColor(Color.DKGRAY);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }, 3000);
     }
@@ -155,8 +178,10 @@ public class PathActivity extends AppCompatActivity {
     }
 
     public void pressButton5(View view) {
+        is_book = false;
         Scanner scan = null;
         File readFrom = new File(getApplicationContext().getFilesDir(), "Bookmark.txt");
+        String str = "";
         try {
             scan = new Scanner(readFrom);
             while (scan.hasNext()) {
@@ -165,8 +190,24 @@ public class PathActivity extends AppCompatActivity {
                 int c = Integer.parseInt(scan.next());
                 if(u == start && v == end && c == transfer)
                 {
-                    Toast.makeText(PathActivity.this, "이미 즐겨찾기로 등록 하셨습니다!", Toast.LENGTH_SHORT).show();
+                    is_book = true;
+                    continue;
+                }
+                str = u + " " + v + " " + c + "\n";
+            }
+            if(is_book == true){
+                File path = getApplicationContext().getFilesDir();
+                try {
+                    new FileOutputStream(new File(path, "Bookmark.txt")).close();
+                    FileOutputStream w = new FileOutputStream(new File(path, "Bookmark.txt"),true);
+                    w.write(str.getBytes());
+                    w.close();
+                    book.setBackgroundColor(Color.DKGRAY);
+                    Toast.makeText(PathActivity.this, "즐겨찾기 해제!", Toast.LENGTH_SHORT).show();
+                    BookMarkView.choose = -1;
                     return;
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         } catch (Exception e) {
@@ -180,6 +221,7 @@ public class PathActivity extends AppCompatActivity {
             w.write(s.getBytes());
             w.close();
             Toast.makeText(PathActivity.this, "즐겨찾기 등록 성공!", Toast.LENGTH_SHORT).show();
+            book.setBackgroundColor(Color.BLUE);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -36,17 +36,9 @@
         <Button
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:text="≡"
-            android:id="@+id/menu"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:onClick="onMenu"/>
-        <Button
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
             android:text="X"
             android:id="@+id/done"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="60dp"
             android:onClick="done"/>
     </LinearLayout>
 

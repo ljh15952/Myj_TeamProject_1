@@ -33,13 +33,15 @@ public class BookMarkView extends View {
     Paint p_r_c;
 
     static int y = 0;
-    static int choose = -1;
+    public static int choose = -1;
     static ArrayList<Station> arr;
+    Context context;
 
     public BookMarkView(Context context, AttributeSet attr) {
         super(context, attr);
         this.setBackgroundColor(Color.GRAY);
         choose = -1;
+        this.context = context;
 
         list = new ArrayList<>();
         arr = new ArrayList<>();
@@ -91,6 +93,24 @@ public class BookMarkView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
+        arr.clear();
+        list.clear();
+        Scanner scan = null;
+        File readFrom = new File(context.getFilesDir(), "Bookmark.txt");
+        try {
+            scan = new Scanner(readFrom);
+            while (scan.hasNext()) {
+                String u = scan.next();
+                String v = scan.next();
+                String c = scan.next();
+                Station s = new Station(u, v, c);
+                arr.add(s);
+                list.add(s);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         int i = 0;
         int width = 1030, height = 260;
         int gap = 100, y_gap = 45, x_gap = 180;

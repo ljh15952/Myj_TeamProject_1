@@ -31,6 +31,7 @@ public class BookMarkActivity extends AppCompatActivity {
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("choose", Integer.toString(BookMarkView.choose));
                 if(BookMarkView.choose != -1){
                     Intent intent = new Intent(getApplicationContext(), PathActivity.class);
                     intent.putExtra("startStation", BookMarkView.arr.get(BookMarkView.choose).getName());
