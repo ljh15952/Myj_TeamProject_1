@@ -137,6 +137,18 @@ public class pathViewActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "출발역과 도착역 모두 선택해주세요!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(startStation.equals(endStation)){
+                    Toast.makeText(getApplicationContext(), "출발역과 도착역은 같을 수 없습니다!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(startStation.equals(transferStation)){
+                    Toast.makeText(getApplicationContext(), "출발역과 경유역을 다르게 해주세요!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(endStation.equals(transferStation)){
+                    Toast.makeText(getApplicationContext(), "도착역과 경유역을 다르게 해주세요!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent = new Intent(getApplicationContext(), PathActivity.class);
                 intent.putExtra("startStation", startStation);
                 intent.putExtra("endStation", endStation);
