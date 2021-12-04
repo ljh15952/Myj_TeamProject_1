@@ -3,17 +3,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.myjteamproject1.Menu.BookMarkActivity">
+    tools:context="com.example.myjteamproject1.Menu.BookMarkActivity"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="right">
+        <TextView
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:textSize="32dp"
+            android:text="★ 즐겨찾기"/>
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="경로보기"
+            android:layout_marginRight="5dp"
+            android:id="@+id/goPath"/>
         <Button
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:text="X"
             android:id="@+id/done"
             android:layout_marginRight="10dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp">
+
+        <com.example.myjteamproject1.Menu.BookMarkView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/bookmark">
+
+        </com.example.myjteamproject1.Menu.BookMarkView>
     </LinearLayout>
 </LinearLayout>

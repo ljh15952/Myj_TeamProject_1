@@ -8,6 +8,8 @@ public class Station {
     private String distance;
     private int line;
 
+    private String trans_station;
+
     public Station(String name, String c, String t, String d, int l) {
         station_name = name;
         cost = c;
@@ -24,6 +26,14 @@ public class Station {
         distance = d + "";
         line = l;
     }
+
+    public Station(int name, int arrival, int trans){
+        station_name = name + "";
+        arrival_station = arrival + "";
+        trans_station = trans + "";
+    }
+
+    public String getTrans(){return trans_station;}
 
     public String getName() {
         return station_name;

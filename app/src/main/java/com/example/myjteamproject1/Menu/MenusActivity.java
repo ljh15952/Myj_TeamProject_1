@@ -3,6 +3,7 @@ package com.example.myjteamproject1.Menu;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,11 +13,13 @@ import com.example.myjtest.R;
 
 public class MenusActivity extends AppCompatActivity {
     Button setting, transfer, bookmark, done;
+    static boolean choice = false;
 
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.menu_activity);
+        choice = false;
 
         setting = (Button) findViewById(R.id.setting);
         transfer = (Button) findViewById(R.id.transfer);
