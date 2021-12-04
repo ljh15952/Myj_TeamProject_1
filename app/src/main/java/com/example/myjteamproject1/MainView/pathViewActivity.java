@@ -102,9 +102,9 @@ public class pathViewActivity extends AppCompatActivity {
         reset_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String startStation = null;
-                String endStation = null;
-                String transferStation = null;
+                startStation = null;
+                endStation = null;
+                transferStation = null;
                 tv_s.setText("");
                 tv_e.setText("");
                 tv_f.setText("");
