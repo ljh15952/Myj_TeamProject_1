@@ -40,6 +40,7 @@ public class PathActivity extends AppCompatActivity {
     int start, end, transfer;
 
     boolean is_book = false;
+
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);

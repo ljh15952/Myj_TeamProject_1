@@ -151,7 +151,7 @@
         android:layout_width="102dp"
         android:layout_height="54dp"
         android:layout_marginStart="248dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="58dp"
         android:text="길찾기!"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_1" />
@@ -161,7 +161,7 @@
         android:layout_width="101dp"
         android:layout_height="48dp"
         android:layout_marginStart="248dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="148dp"
         android:text="초기화"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_1" />
