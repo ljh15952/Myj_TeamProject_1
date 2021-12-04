@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myjteamproject1.PathView.PathActivity;
 import com.example.myjteamproject1.PathView.Station;
 import com.example.myjtest.R;
 
@@ -31,7 +32,10 @@ public class BookMarkActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(BookMarkView.choose != -1){
-                    Intent intent = new Intent(getApplicationContext(), PathActivityBook.class);
+                    Intent intent = new Intent(getApplicationContext(), PathActivity.class);
+                    intent.putExtra("startStation", BookMarkView.arr.get(BookMarkView.choose).getName());
+                    intent.putExtra("endStation", BookMarkView.arr.get(BookMarkView.choose).getArrive());
+                    intent.putExtra("transferStation", BookMarkView.arr.get(BookMarkView.choose).getTrans());
                     startActivity(intent);
                 }
             }

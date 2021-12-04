@@ -27,10 +27,10 @@ public class Station {
         line = l;
     }
 
-    public Station(int name, int arrival, int trans){
-        station_name = name + "";
-        arrival_station = arrival + "";
-        trans_station = trans + "";
+    public Station(String name, String arrival, String trans){
+        station_name = name;
+        arrival_station = arrival;
+        trans_station = trans;
     }
 
     public String getTrans(){return trans_station;}

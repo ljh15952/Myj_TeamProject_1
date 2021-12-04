@@ -98,7 +98,6 @@ public class pathViewActivity extends AppCompatActivity {
         loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         loadingDialog.show();
 
-
         reset_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

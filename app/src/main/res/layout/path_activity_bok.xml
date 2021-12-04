@@ -45,14 +45,14 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.example.myjteamproject1.Menu.PathViewBook
+        <com.example.myjteamproject1.PathView.PathView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:id="@+id/path">
-        </com.example.myjteamproject1.Menu.PathViewBook>
+        </com.example.myjteamproject1.PathView.PathView>
 
         <LinearLayout
             android:layout_width="match_parent"

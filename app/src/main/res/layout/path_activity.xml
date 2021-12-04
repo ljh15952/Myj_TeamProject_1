@@ -73,14 +73,15 @@
                 android:layout_height="wrap_content"
                 android:onClick="pressButton4"
                 android:layout_marginRight="15dp"/>
+
             <Button
                 android:id="@+id/bookmark"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:onClick="pressButton4"
                 android:layout_marginRight="15dp"
-                android:textSize="10dp"
-                android:text="즐겨찾기"/>
+                android:onClick="pressButton5"
+                android:text="즐겨찾기"
+                android:textSize="10dp" />
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>

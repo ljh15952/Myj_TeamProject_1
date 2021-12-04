@@ -288,7 +288,6 @@ public class PathFinder extends AppCompatActivity {
     private void setUpStation(int type, Context context) {
         for (int i = 0; i < MAX_V; i++)
             adj[i] = new ArrayList<>();
-        Log.d("ASD","HIIH");
         getAllStationDataToTuple(type, context);
     }
 

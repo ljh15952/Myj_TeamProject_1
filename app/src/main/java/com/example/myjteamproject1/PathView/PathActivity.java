@@ -1,5 +1,6 @@
 package com.example.myjteamproject1.PathView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -8,6 +9,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +19,15 @@ import com.example.myjteamproject1.Menu.MenusActivity;
 import com.example.myjteamproject1.PathFinder.PathFinder;
 import com.example.myjtest.R;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class PathActivity extends AppCompatActivity {
     Button time, cost, distance, button3, done, set;
@@ -25,12 +35,10 @@ public class PathActivity extends AppCompatActivity {
 
     LoadingDialog loadingDialog;
 
-    int start,end,transfer;
-
+    int start, end, transfer;
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
-
         loadingDialog = new LoadingDialog(this);
         loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         loadingDialog.show();
@@ -39,7 +47,7 @@ public class PathActivity extends AppCompatActivity {
         start = Integer.parseInt(intent.getStringExtra("startStation"));
         end = Integer.parseInt(intent.getStringExtra("endStation"));
         String t = intent.getStringExtra("transferStation");
-        if(t != null)
+        if (t != null)
             transfer = Integer.parseInt(intent.getStringExtra("transferStation"));
         else
             transfer = 0;
@@ -49,13 +57,13 @@ public class PathActivity extends AppCompatActivity {
         //PathFinder p2 = new PathFinder(start, end, 1, PathActivity.this);
 
         PathFinder p1 = MainActivity.p1;
-        p1.Algorithm(start,end,transfer);
+        p1.Algorithm(start, end, transfer);
 
         PathFinder p2 = MainActivity.p2;
-        p2.Algorithm(start,end,transfer);
+        p2.Algorithm(start, end, transfer);
 
         PathFinder p3 = MainActivity.p3;
-        p3.Algorithm(start,end,transfer);
+        p3.Algorithm(start, end, transfer);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -146,6 +154,37 @@ public class PathActivity extends AppCompatActivity {
         PathView.ny = 200;
     }
 
+    public void pressButton5(View view) {
+        Scanner scan = null;
+        File readFrom = new File(getApplicationContext().getFilesDir(), "Bookmark.txt");
+        try {
+            scan = new Scanner(readFrom);
+            while (scan.hasNext()) {
+                int u = Integer.parseInt(scan.next());
+                int v = Integer.parseInt(scan.next());
+                int c = Integer.parseInt(scan.next());
+                if(u == start && v == end && c == transfer)
+                {
+                    Toast.makeText(PathActivity.this, "이미 즐겨찾기로 등록 하셨습니다!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        File path = getApplicationContext().getFilesDir();
+        try {
+            FileOutputStream w = new FileOutputStream(new File(path, "Bookmark.txt"),true);
+            String s = start + " " + end + " " + transfer + "\n";
+            w.write(s.getBytes());
+            w.close();
+            Toast.makeText(PathActivity.this, "즐겨찾기 등록 성공!", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setButton3(View view) {
         PathView.screen = 0;
         button3.setBackgroundColor(Color.BLACK);
@@ -157,7 +196,7 @@ public class PathActivity extends AppCompatActivity {
         finish();
     }
 
-    public void onMenu(View view){
+    public void onMenu(View view) {
         Intent intent = new Intent(getApplicationContext(), MenusActivity.class);
         startActivity(intent);
     }
