@@ -84,21 +84,21 @@ public class PathView extends View {
 //        s.add(new Station("304", "0", "0", "0", 0));
 
         for (Station st : timeStations) {
-            s.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
+            s.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", st.getLine()));
         }
         s.add(new Station(timeStations.get(timeStations.size() - 1).getArrive(), "0", "0", "0", 0));
 
         for (Station st : costStations) {
-            t.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
+            t.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", st.getLine()));
         }
         t.add(new Station(costStations.get(costStations.size() - 1).getArrive(), "0", "0", "0", 0));
 
         for (Station st : distanceStations) {
-            d.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
+            d.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", st.getLine()));
         }
         d.add(new Station(distanceStations.get(distanceStations.size() - 1).getArrive(), "0", "0", "0", 0));
 
-       // t.add(new Station("101", "30", "10", "50", 1));
+        // t.add(new Station("101", "30", "10", "50", 1));
         //t.add(new Station("102", "0", "0", "0", 0));
         station.add(s);
         station.add(t);
