@@ -46,11 +46,19 @@ public class PathFinder extends AppCompatActivity {
         this.context = context;
     }
 
-    public void Algorithm(int start,int end) {
+    public void Algorithm(int start,int end,int transfer) {
         returnStations = new ArrayList<>();
         pathArr = new LinkedList<>();
         int K = start;
         int N = end; //시작역 , 도착역 입력
+        int VIA;
+        boolean via_check = false;
+        if(transfer != 0)
+        {
+            VIA = transfer;
+            VIA--;
+            via_check = true;
+        }
         K--;
         N--;
 
@@ -100,7 +108,9 @@ public class PathFinder extends AppCompatActivity {
                 }
             }
         }
+        if(via_check){
 
+        }
 
         // 어떠한 경로를 거쳐왔는지 출력
         int curr = N;

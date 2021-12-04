@@ -25,7 +25,7 @@ public class PathActivity extends AppCompatActivity {
 
     LoadingDialog loadingDialog;
 
-    int start,end;
+    int start,end,transfer;
 
     @Override
     protected void onCreate(Bundle savedInstance) {
@@ -38,17 +38,23 @@ public class PathActivity extends AppCompatActivity {
         Intent intent = getIntent();
         start = Integer.parseInt(intent.getStringExtra("startStation"));
         end = Integer.parseInt(intent.getStringExtra("endStation"));
+        String t = intent.getStringExtra("transferStation");
+        if(t != null)
+            transfer = Integer.parseInt(intent.getStringExtra("transferStation"));
+        else
+            transfer = 0;
+
         //PathFinder p = new PathFinder(start, end, 0, PathActivity.this);
         //PathFinder p2 = new PathFinder(start, end, 1, PathActivity.this);
 
         PathFinder p1 = MainActivity.p1;
-        p1.Algorithm(start,end);
+        p1.Algorithm(start,end,transfer);
 
         PathFinder p2 = MainActivity.p2;
-        p2.Algorithm(start,end);
+        p2.Algorithm(start,end,transfer);
 
         PathFinder p3 = MainActivity.p3;
-        p3.Algorithm(start,end);
+        p3.Algorithm(start,end,transfer);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
