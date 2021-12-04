@@ -3,6 +3,7 @@ package com.example.myjteamproject1.PathView;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorSpace;
 import android.graphics.Paint;
 import android.provider.Settings;
 import android.util.AttributeSet;
@@ -28,6 +29,7 @@ public class PathView extends View {
     Paint p_station_trans;
     Paint p_text_s;
     Paint p_trans;
+    Paint p_station_trans_u;
 
     static boolean move = false;
     DisplayMetrics display;
@@ -43,6 +45,7 @@ public class PathView extends View {
     static int type;
     static int screen;
     static int ny;
+    static int is_trans;
 
     public PathView(Context context, AttributeSet attr) {
         super(context);
@@ -66,6 +69,8 @@ public class PathView extends View {
         p_trans = new Paint();
         p_trans.setColor(Color.WHITE);
         p_trans.setTextSize(textSize * 4 / 5);
+        p_station_trans_u = new Paint();
+        p_station_trans_u.setColor(Color.DKGRAY);
 
         this.setBackgroundColor(Color.GRAY);
         type = 0;
@@ -205,28 +210,67 @@ public class PathView extends View {
         int length = now_list.size() - 1;
         //draw stations
         if (screen == 0) {
-            canvas.drawCircle(nx, ny + 200, radius, p_station);
-            canvas.drawRect(nx - 20, ny + 200, nx + 20, ny + 200 + radius * 3, p_station);
-            canvas.drawCircle(nx, ny + 200 + radius * 3, radius, p_station);
-            canvas.drawText(now_list.get(0).getName(), nx + radius * 2, ny + 200 + 20, p_sub_info);
-            canvas.drawText(now_list.get(length).getName(), nx + radius * 2, ny + 200 + radius * 3 + 20, p_sub_info);
-            canvas.drawText(length - 1 + "개 역", nx + radius * 2, ny + 200 + radius * 3 / 2 + 20, p_text_s);
+            if(is_trans != 0) {
+                int first = 0 , last = 0;
+                boolean trans = false;
+                for(Station s : now_list){
+                    if(trans == false){
+                        if(s.getName().equals(Integer.toString(is_trans))) {
+                            trans = true;
+                            first -= 1;
+                        }
+                        first++;
+                    }
+                    last++;
+                }
+                canvas.drawRect(nx - 20, ny + 200, nx + 20, ny + 200 + radius * 3, p_station);
+                canvas.drawRect(nx - 20, ny + 200, nx + 20, ny + 200 + radius * 3 * 2, p_station);
+                canvas.drawCircle(nx, ny + 200, radius, p_station);
+                canvas.drawCircle(nx, ny + 200 + radius * 3, radius, p_station_trans_u);
+                canvas.drawCircle(nx, ny + 200 + radius * 3 * 2, radius, p_station);
+                canvas.drawText("경유역", nx - 55, ny + 200 + radius * 3 + 12, p_trans);
+
+                canvas.drawText(now_list.get(0).getName(), nx + radius * 2, ny + 200 + 20, p_sub_info);
+                canvas.drawText(Integer.toString(is_trans), nx + radius * 2, ny + 200 + radius * 3 + 20, p_sub_info);
+                canvas.drawText(now_list.get(length).getName(), nx + radius * 2, ny + 200 + radius * 3 * 2 + 20, p_sub_info);
+                canvas.drawText(first + "개 역", nx + radius * 2, ny + 200 + radius * 3 / 2 + 20, p_text_s);
+                canvas.drawText(last + "개 역", nx + radius * 2, ny + 200 + radius * (3 / 2) * 4 + 40, p_text_s);
+            }else {
+                canvas.drawCircle(nx, ny + 200, radius, p_station);
+                canvas.drawRect(nx - 20, ny + 200, nx + 20, ny + 200 + radius * 3, p_station);
+                canvas.drawCircle(nx, ny + 200 + radius * 3, radius, p_station);
+                canvas.drawText(now_list.get(0).getName(), nx + radius * 2, ny + 200 + 20, p_sub_info);
+                canvas.drawText(now_list.get(length).getName(), nx + radius * 2, ny + 200 + radius * 3 + 20, p_sub_info);
+                canvas.drawText(length - 1 + "개 역", nx + radius * 2, ny + 200 + radius * 3 / 2 + 20, p_text_s);
+            }
         } else {
             int count = 0;
             if (length < 4)
                 move = false;
             for (Station station : now_list) {
+                Log.d("trans", station.getName());
+                Log.d("settrans", Integer.toString(is_trans));
+                if(station.getName().equals(Integer.toString(is_trans))){
+                    canvas.drawRect(nx - 20, ny + 200 + radius * 3 * count, nx + 20, ny + 200 + radius * 3 * (count + 1), p_station);
+                    canvas.drawCircle(nx, ny + 200 + radius * 3 * count, radius, p_station_trans_u);
+                    canvas.drawText("경유역", nx - 55, ny + 200 + radius * 3 * count + 12, p_trans);
+                }
                 if (count != length) {
                     if (count != 0 && station.getLine() != now_list.get(count - 1).getLine()) {
                         canvas.drawRect(nx - 20, ny + 200 + radius * 3 * count, nx + 20, ny + 200 + radius * 3 * (count + 1), p_station);
-                        canvas.drawCircle(nx, ny + 200 + radius * 3 * count, radius, p_station_trans);
-                        canvas.drawText("환승역", nx - 50, ny + 200 + radius * 3 * count + 10, p_trans);
-                    } else {
+                        if(station.getName().equals(Integer.toString(is_trans))) {
+                            canvas.drawCircle(nx, ny + 200 + radius * 3 * count, radius, p_station_trans_u);
+                            canvas.drawText("환승/경유", nx - 78, ny + 200 + radius * 3 * count + 12, p_trans);
+                        }
+                        else {
+                            canvas.drawCircle(nx, ny + 200 + radius * 3 * count, radius, p_station_trans);
+                            canvas.drawText("환승역", nx - 55, ny + 200 + radius * 3 * count + 12, p_trans);
+                        }
+                    } else if(!station.getName().equals(Integer.toString(is_trans))) {
                         canvas.drawCircle(nx, ny + 200 + radius * 3 * count, radius, p_station);
                         canvas.drawRect(nx - 20, ny + 200 + radius * 3 * count, nx + 20, ny + 200 + radius * 3 * (count + 1), p_station);
                     }
-                    canvas.drawText(station.getTime() + "초 /", nx + radius * 2, ny + 200 + radius * 3 * count + radius * 3 / 2 + 20, p_text_s);
-                    canvas.drawText(station.getCost() + "원 ", nx + radius * 2 + radius + 20, ny + 200 + radius * 3 * count + radius * 3 / 2 + 20, p_text_s);
+                    canvas.drawText(station.getTime() + "초 /" + station.getCost() + "원 ", nx + radius * 2, ny + 200 + radius * 3 * count + radius * 3 / 2 + 20, p_text_s);
                 } else
                     canvas.drawCircle(nx, ny + 200 + radius * 3 * count, radius, p_station);
 

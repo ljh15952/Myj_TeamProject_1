@@ -43,6 +43,7 @@ public class PathActivity extends AppCompatActivity {
             transfer = Integer.parseInt(intent.getStringExtra("transferStation"));
         else
             transfer = 0;
+        PathView.is_trans = transfer;
 
         //PathFinder p = new PathFinder(start, end, 0, PathActivity.this);
         //PathFinder p2 = new PathFinder(start, end, 1, PathActivity.this);
