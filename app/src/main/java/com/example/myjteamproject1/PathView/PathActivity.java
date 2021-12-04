@@ -70,12 +70,9 @@ public class PathActivity extends AppCompatActivity {
                 ArrayList<Station> st2 = p2.getStationArr();
                 ArrayList<Station> st3 = p3.getStationArr();
 
-//                Log.d("SIZE", st.size() + "");
-//                for (Station s : st) {
-//                    Log.d("info", s.getName() + " " + s.getArrive());
-//                    Log.d("time", s.getTime() + "");
-//                    Log.d("dis", s.getDistance() + "");
-//                    Log.d("cost", s.getCost() + "");
+//                Log.d("SIZE", st1.size() + "");
+//                for (Station s : st1) {
+//                    Log.d("info", s.getName() + " " + s.getArrive() + " " + s.getLine());
 //                }
 
                 PathView.timeStations = st1;
@@ -102,7 +99,6 @@ public class PathActivity extends AppCompatActivity {
 
             }
         }, 3000);
-        //st배열 배열사용해서 View로 넘겨주면 댐..
     }
 
     public void pressButton1(View view) {
