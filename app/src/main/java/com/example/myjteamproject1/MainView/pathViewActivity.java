@@ -88,6 +88,8 @@ public class pathViewActivity extends AppCompatActivity {
         btn_2.setBackgroundColor(Color.DKGRAY);
         setting.setBackgroundColor(Color.DKGRAY);
         goPath_button.setBackgroundColor(Color.DKGRAY);
+        btn_3.setBackgroundColor(Color.DKGRAY);
+        reset_button.setBackgroundColor(Color.DKGRAY);
 
         list = new ArrayList<>();
         setAllStationInfo();

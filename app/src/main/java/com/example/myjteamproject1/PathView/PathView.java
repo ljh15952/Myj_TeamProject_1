@@ -3,6 +3,7 @@ package com.example.myjteamproject1.PathView;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorSpace;
 import android.graphics.Paint;
 import android.provider.Settings;
 import android.util.AttributeSet;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 public class PathView extends View {
     int tx, ty = 200;
     int radius = 100;
+    boolean time_full = false;
     Paint p_sub_info;
     Paint p_main_info;
     Paint p_info;
@@ -27,6 +29,7 @@ public class PathView extends View {
     Paint p_station_trans;
     Paint p_text_s;
     Paint p_trans;
+    Paint p_station_trans_u;
 
     static boolean move = false;
     DisplayMetrics display;
@@ -42,13 +45,14 @@ public class PathView extends View {
     static int type;
     static int screen;
     static int ny;
+    static int is_trans;
 
     public PathView(Context context, AttributeSet attr) {
         super(context);
         textSize = radius / 2;
         p_main_info = new Paint();
         p_main_info.setColor(Color.BLACK);
-        p_main_info.setTextSize(textSize * 5 / 3);
+        p_main_info.setTextSize(textSize);
         p_sub_info = new Paint();
         p_sub_info.setColor(Color.BLACK);
         p_sub_info.setTextSize(textSize);
@@ -65,6 +69,8 @@ public class PathView extends View {
         p_trans = new Paint();
         p_trans.setColor(Color.WHITE);
         p_trans.setTextSize(textSize * 4 / 5);
+        p_station_trans_u = new Paint();
+        p_station_trans_u.setColor(Color.DKGRAY);
 
         this.setBackgroundColor(Color.GRAY);
         type = 0;
@@ -73,8 +79,8 @@ public class PathView extends View {
         ny = ty;
 
         ArrayList<ArrayList<Station>> station = new ArrayList<ArrayList<Station>>();
-        ArrayList<Station> s = new ArrayList<>();
         ArrayList<Station> t = new ArrayList<>();
+        ArrayList<Station> c = new ArrayList<>();
         ArrayList<Station> d = new ArrayList<>();
 
 //        s.add(new Station("102", "30", "10", "50", 1));
@@ -84,24 +90,24 @@ public class PathView extends View {
 //        s.add(new Station("304", "0", "0", "0", 0));
 
         for (Station st : timeStations) {
-            s.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", st.getLine()));
+            t.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
         }
-        s.add(new Station(timeStations.get(timeStations.size() - 1).getArrive(), "0", "0", "0", 0));
+        t.add(new Station(timeStations.get(timeStations.size() - 1).getArrive(), "0", "0", "0", 0));
 
         for (Station st : costStations) {
-            t.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", st.getLine()));
+            c.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
         }
-        t.add(new Station(costStations.get(costStations.size() - 1).getArrive(), "0", "0", "0", 0));
+        c.add(new Station(costStations.get(costStations.size() - 1).getArrive(), "0", "0", "0", 0));
 
         for (Station st : distanceStations) {
-            d.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", st.getLine()));
+            d.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
         }
         d.add(new Station(distanceStations.get(distanceStations.size() - 1).getArrive(), "0", "0", "0", 0));
 
-        // t.add(new Station("101", "30", "10", "50", 1));
+       // t.add(new Station("101", "30", "10", "50", 1));
         //t.add(new Station("102", "0", "0", "0", 0));
-        station.add(s);
         station.add(t);
+        station.add(c);
         station.add(d);
         this.setPathWay(station);
 
@@ -143,33 +149,59 @@ public class PathView extends View {
         int nx = radius * 2;
         int num = 0, sub = 1;
         String unit = "", info = "";
+        String major_info = "";
+        String sub_info = "";
 
         //draw text about information
         for (String str : result.get(type)) {
             switch (num) {
                 case 0:
                     info = "소요시간";
-                    unit = "초";
+                    unit = "초/";
                     break;
                 case 1:
                     info = "환승역";
                     if (str.equals("0")) {
-                        unit = "없음";
+                        unit = "없음/";
                         str = "";
                     } else
-                        unit = "개";
+                        unit = "개/";
                     break;
                 case 2:
                     info = "소요 비용";
-                    unit = "원";
+                    unit = "원/";
                     break;
+            }
+            if(num == 0){
+                if(time_full == true){
+                    int time = Integer.parseInt(str);
+                    int min = time/100;
+                    int sec = time%100;
+                    if(sec == 0) {
+                        unit = "/";
+                        str = Integer.toString(min) + "분";
+                    }else
+                        str = Integer.toString(min) + "분" + Integer.toString(sec);
+                }
             }
             if (num == type) {
                 canvas.drawText(info, nx - 50 - 40, ny - 100, p_info);
                 canvas.drawText(str + unit, nx - 50 - 40, ny, p_main_info);
             } else {
-                canvas.drawText(info, nx + 200 * sub - 40, ny - 100, p_info);
-                canvas.drawText(str + unit, nx + 200 * sub - 40, ny, p_sub_info);
+                int gap = 0;
+                if (num == 0)
+                    gap = 160;
+                else
+                    gap = 200;
+                canvas.drawText(info, nx + gap * sub - 40, ny - 100, p_info);
+                int gap_s = 40;
+                if(type == 0)
+                    gap_s = 40;
+                else if(sub == 1)
+                    gap_s = 70;
+                else
+                    gap_s = 30;
+                canvas.drawText(str + unit, nx + gap * sub - gap_s, ny, p_sub_info);
                 sub++;
             }
             num++;
@@ -178,28 +210,67 @@ public class PathView extends View {
         int length = now_list.size() - 1;
         //draw stations
         if (screen == 0) {
-            canvas.drawCircle(nx, ny + 200, radius, p_station);
-            canvas.drawRect(nx - 20, ny + 200, nx + 20, ny + 200 + radius * 3, p_station);
-            canvas.drawCircle(nx, ny + 200 + radius * 3, radius, p_station);
-            canvas.drawText(now_list.get(0).getName(), nx + radius * 2, ny + 200 + 20, p_sub_info);
-            canvas.drawText(now_list.get(length).getName(), nx + radius * 2, ny + 200 + radius * 3 + 20, p_sub_info);
-            canvas.drawText(length - 1 + "개 역", nx + radius * 2, ny + 200 + radius * 3 / 2 + 20, p_text_s);
+            if(is_trans != 0) {
+                int first = 0 , last = 0;
+                boolean trans = false;
+                for(Station s : now_list){
+                    if(trans == false){
+                        if(s.getName().equals(Integer.toString(is_trans))) {
+                            trans = true;
+                            first -= 1;
+                        }
+                        first++;
+                    }
+                    last++;
+                }
+                canvas.drawRect(nx - 20, ny + 200, nx + 20, ny + 200 + radius * 3, p_station);
+                canvas.drawRect(nx - 20, ny + 200, nx + 20, ny + 200 + radius * 3 * 2, p_station);
+                canvas.drawCircle(nx, ny + 200, radius, p_station);
+                canvas.drawCircle(nx, ny + 200 + radius * 3, radius, p_station_trans_u);
+                canvas.drawCircle(nx, ny + 200 + radius * 3 * 2, radius, p_station);
+                canvas.drawText("경유역", nx - 55, ny + 200 + radius * 3 + 12, p_trans);
+
+                canvas.drawText(now_list.get(0).getName(), nx + radius * 2, ny + 200 + 20, p_sub_info);
+                canvas.drawText(Integer.toString(is_trans), nx + radius * 2, ny + 200 + radius * 3 + 20, p_sub_info);
+                canvas.drawText(now_list.get(length).getName(), nx + radius * 2, ny + 200 + radius * 3 * 2 + 20, p_sub_info);
+                canvas.drawText(first + "개 역", nx + radius * 2, ny + 200 + radius * 3 / 2 + 20, p_text_s);
+                canvas.drawText(last + "개 역", nx + radius * 2, ny + 200 + radius * (3 / 2) * 4 + 40, p_text_s);
+            }else {
+                canvas.drawCircle(nx, ny + 200, radius, p_station);
+                canvas.drawRect(nx - 20, ny + 200, nx + 20, ny + 200 + radius * 3, p_station);
+                canvas.drawCircle(nx, ny + 200 + radius * 3, radius, p_station);
+                canvas.drawText(now_list.get(0).getName(), nx + radius * 2, ny + 200 + 20, p_sub_info);
+                canvas.drawText(now_list.get(length).getName(), nx + radius * 2, ny + 200 + radius * 3 + 20, p_sub_info);
+                canvas.drawText(length - 1 + "개 역", nx + radius * 2, ny + 200 + radius * 3 / 2 + 20, p_text_s);
+            }
         } else {
             int count = 0;
             if (length < 4)
                 move = false;
             for (Station station : now_list) {
+                Log.d("trans", station.getName());
+                Log.d("settrans", Integer.toString(is_trans));
+                if(station.getName().equals(Integer.toString(is_trans))){
+                    canvas.drawRect(nx - 20, ny + 200 + radius * 3 * count, nx + 20, ny + 200 + radius * 3 * (count + 1), p_station);
+                    canvas.drawCircle(nx, ny + 200 + radius * 3 * count, radius, p_station_trans_u);
+                    canvas.drawText("경유역", nx - 55, ny + 200 + radius * 3 * count + 12, p_trans);
+                }
                 if (count != length) {
                     if (count != 0 && station.getLine() != now_list.get(count - 1).getLine()) {
                         canvas.drawRect(nx - 20, ny + 200 + radius * 3 * count, nx + 20, ny + 200 + radius * 3 * (count + 1), p_station);
-                        canvas.drawCircle(nx, ny + 200 + radius * 3 * count, radius, p_station_trans);
-                        canvas.drawText("환승역", nx - 50, ny + 200 + radius * 3 * count + 10, p_trans);
-                    } else {
+                        if(station.getName().equals(Integer.toString(is_trans))) {
+                            canvas.drawCircle(nx, ny + 200 + radius * 3 * count, radius, p_station_trans_u);
+                            canvas.drawText("환승/경유", nx - 78, ny + 200 + radius * 3 * count + 12, p_trans);
+                        }
+                        else {
+                            canvas.drawCircle(nx, ny + 200 + radius * 3 * count, radius, p_station_trans);
+                            canvas.drawText("환승역", nx - 55, ny + 200 + radius * 3 * count + 12, p_trans);
+                        }
+                    } else if(!station.getName().equals(Integer.toString(is_trans))) {
                         canvas.drawCircle(nx, ny + 200 + radius * 3 * count, radius, p_station);
                         canvas.drawRect(nx - 20, ny + 200 + radius * 3 * count, nx + 20, ny + 200 + radius * 3 * (count + 1), p_station);
                     }
-                    canvas.drawText(station.getTime() + "초 /", nx + radius * 2, ny + 200 + radius * 3 * count + radius * 3 / 2 + 20, p_text_s);
-                    canvas.drawText(station.getCost() + "원 ", nx + radius * 2 + radius + 20, ny + 200 + radius * 3 * count + radius * 3 / 2 + 20, p_text_s);
+                    canvas.drawText(station.getTime() + "초 /" + station.getCost() + "원 ", nx + radius * 2, ny + 200 + radius * 3 * count + radius * 3 / 2 + 20, p_text_s);
                 } else
                     canvas.drawCircle(nx, ny + 200 + radius * 3 * count, radius, p_station);
 
@@ -240,24 +311,16 @@ public class PathView extends View {
             //get cost result
             cost += s.getCost();
         }
+        if(time >= 60){
+            int min = time/60;
+            int sec = time%60;
+            time = min*100 + sec;
+            time_full = true;
+        }
+        else
+            time_full = false;
         result.get(num).add(Integer.toString(time));
         result.get(num).add(Integer.toString(trans));
         result.get(num).add(Integer.toString(cost));
     }
-
-    /*
-    @Override
-    public void onDraw(Canvas canvas){
-        int nx = radius*2, ny = ty;
-        String str = "101";
-        int length;
-        for(int i = 0; i< 5; i++){
-            length = str.length() * 33;
-            canvas.drawCircle(nx, ny, radius, p);
-            canvas.drawText(str,nx - length/2 + 10, ny + 20, p1);
-            ny += radius*3;
-        }
-        invalidate();
-    }
-     */
 }

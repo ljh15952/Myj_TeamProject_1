@@ -43,6 +43,7 @@ public class PathActivity extends AppCompatActivity {
             transfer = Integer.parseInt(intent.getStringExtra("transferStation"));
         else
             transfer = 0;
+        PathView.is_trans = transfer;
 
         //PathFinder p = new PathFinder(start, end, 0, PathActivity.this);
         //PathFinder p2 = new PathFinder(start, end, 1, PathActivity.this);
@@ -91,11 +92,11 @@ public class PathActivity extends AppCompatActivity {
                 menu = (Button) findViewById(R.id.menu);
 
                 time.setBackgroundColor(Color.GRAY);
-                cost.setBackgroundColor(Color.BLACK);
-                distance.setBackgroundColor(Color.BLACK);
+                cost.setBackgroundColor(Color.DKGRAY);
+                distance.setBackgroundColor(Color.DKGRAY);
                 button3.setBackgroundColor(Color.BLACK);
-                done.setBackgroundColor(Color.BLACK);
-                menu.setBackgroundColor(Color.BLACK);
+                done.setBackgroundColor(Color.DKGRAY);
+                menu.setBackgroundColor(Color.DKGRAY);
 
                 button3.setText("확대");
 
@@ -106,8 +107,8 @@ public class PathActivity extends AppCompatActivity {
 
     public void pressButton1(View view) {
         time.setBackgroundColor(Color.GRAY);
-        cost.setBackgroundColor(Color.BLACK);
-        distance.setBackgroundColor(Color.BLACK);
+        cost.setBackgroundColor(Color.DKGRAY);
+        distance.setBackgroundColor(Color.DKGRAY);
 
         PathView.type = 0;
         PathView.ny = 200;
@@ -115,8 +116,8 @@ public class PathActivity extends AppCompatActivity {
     }
 
     public void pressButton2(View view) {
-        time.setBackgroundColor(Color.BLACK);
-        cost.setBackgroundColor(Color.BLACK);
+        time.setBackgroundColor(Color.DKGRAY);
+        cost.setBackgroundColor(Color.DKGRAY);
         distance.setBackgroundColor(Color.GRAY);
 
         PathView.type = 1;
@@ -125,11 +126,11 @@ public class PathActivity extends AppCompatActivity {
     }
 
     public void pressButton3(View view) {
-        time.setBackgroundColor(Color.BLACK);
+        time.setBackgroundColor(Color.DKGRAY);
         cost.setBackgroundColor(Color.GRAY);
-        distance.setBackgroundColor(Color.BLACK);
+        distance.setBackgroundColor(Color.DKGRAY);
 
-        PathView.type = 1;
+        PathView.type = 2;
         PathView.ny = 200;
         setButton3(view);
     }
