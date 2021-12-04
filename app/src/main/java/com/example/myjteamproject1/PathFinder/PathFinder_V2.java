@@ -256,21 +256,21 @@
 //    }
 //
 //    // class pair(int, int) 2가지의 int형 정보를 저장한다, Comparble은 우선순위 큐에서 서로의 크기를 비교해 정렬을 하기 위함이다.
-//    static class pair implements Comparable<pair> {
-//        int x;
-//        int y;
-//
-//        pair(int x, int y) {
-//            this.x = x; // 첫번째 인자
-//            this.y = y; // 두번째 인자
-//        }
-//
-//        @Override
-//        public int compareTo(pair o) {
-//            return this.x <= o.x ? -1 : 1; // 첫번째 인자 끼리 비교
-//
-//
-//        }
-//    }
+////    static class pair implements Comparable<pair> {
+////        int x;
+////        int y;
+////
+////        pair(int x, int y) {
+////            this.x = x; // 첫번째 인자
+////            this.y = y; // 두번째 인자
+////        }
+////
+////        @Override
+////        public int compareTo(pair o) {
+////            return this.x <= o.x ? -1 : 1; // 첫번째 인자 끼리 비교
+////
+////
+////        }
+////    }
 //}
 //}
