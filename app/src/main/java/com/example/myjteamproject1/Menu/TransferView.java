@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class TransferView extends View {
     int ty = 250;
-    int x = 100;
+    int x = 120;
     static int type = TransferData.ENG;
     static int choice = -1;
     int touch_x = -1, touch_y = -1;
@@ -90,11 +90,11 @@ public class TransferView extends View {
                 y += 30;
         }else{
             String[] str = context[choice];
-            canvas.drawRect(900, 60, 1040, 160, text_sub);
-            canvas.drawText("EXIT", 910, 130,exit);
+            canvas.drawRect(840, 60, 982, 160, text_sub);
+            canvas.drawText("EXIT", 850, 130,exit);
             canvas.drawText(str[type], 40, 580, text_p);
             canvas.drawText(str[TransferData.KOR], 40, 720, text_sub);
-            if(touch_x >= 900 && touch_x <= 1040 && touch_y >= 60 && touch_y <=160)
+            if(touch_x >= 840 && touch_x <= 982 && touch_y >= 60 && touch_y <=160)
                 choice = -1;
         }
         invalidate();

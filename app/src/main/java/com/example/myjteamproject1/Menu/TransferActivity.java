@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myjteamproject1.PathView.PathView;
 import com.example.myjtest.R;
 
 import java.util.ArrayList;
@@ -54,6 +55,7 @@ public class TransferActivity extends AppCompatActivity {
                 if(TransferView.choice == -1) {
                     setButtonColor(0);
                     TransferView.type = TransferData.ENG;
+                    TransferView.y = 137;
                 }
             }
         });
@@ -64,6 +66,7 @@ public class TransferActivity extends AppCompatActivity {
                 if(TransferView.choice == -1) {
                     setButtonColor(1);
                     TransferView.type = TransferData.THAI;
+                    TransferView.y = 137;
                 }
             }
         });
@@ -74,6 +77,7 @@ public class TransferActivity extends AppCompatActivity {
                 if(TransferView.choice == -1) {
                     setButtonColor(2);
                     TransferView.type = TransferData.SPN;
+                    TransferView.y = 137;
                 }
             }
         });
@@ -84,6 +88,7 @@ public class TransferActivity extends AppCompatActivity {
                 if(TransferView.choice == -1) {
                     setButtonColor(3);
                     TransferView.type = TransferData.RUS;
+                    TransferView.y = 137;
                 }
             }
         });

@@ -54,7 +54,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="550dp">
+        android:layout_height="550dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
         <com.example.myjteamproject1.Menu.TransferView
             android:layout_width="match_parent"
