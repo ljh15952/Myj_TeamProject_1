@@ -185,8 +185,13 @@ public class PathView extends View {
                 }
             }
             if (num == type) {
+                int gap = 40;
+                if(num == 0)
+                    gap = 40;
+                else
+                    gap = 55;
                 canvas.drawText(info, nx - 50 - 40, ny - 100, p_info);
-                canvas.drawText(str + unit, nx - 50 - 40, ny, p_main_info);
+                canvas.drawText(str + unit, nx - 50 - gap, ny, p_main_info);
             } else {
                 int gap = 0;
                 if (num == 0)
@@ -198,7 +203,7 @@ public class PathView extends View {
                 if(type == 0)
                     gap_s = 40;
                 else if(sub == 1)
-                    gap_s = 70;
+                    gap_s = 63;
                 else
                     gap_s = 30;
                 canvas.drawText(str + unit, nx + gap * sub - gap_s, ny, p_sub_info);
@@ -248,8 +253,8 @@ public class PathView extends View {
             if (length < 4)
                 move = false;
             for (Station station : now_list) {
-                Log.d("trans", station.getName());
-                Log.d("settrans", Integer.toString(is_trans));
+                //Log.d("trans", station.getName());
+               // Log.d("settrans", Integer.toString(is_trans));
                 if(station.getName().equals(Integer.toString(is_trans))){
                     canvas.drawRect(nx - 20, ny + 200 + radius * 3 * count, nx + 20, ny + 200 + radius * 3 * (count + 1), p_station);
                     canvas.drawCircle(nx, ny + 200 + radius * 3 * count, radius, p_station_trans_u);
