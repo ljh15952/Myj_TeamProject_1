@@ -90,17 +90,17 @@ public class PathView extends View {
 //        s.add(new Station("304", "0", "0", "0", 0));
 
         for (Station st : timeStations) {
-            t.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
+            t.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", st.getLine() ));
         }
         t.add(new Station(timeStations.get(timeStations.size() - 1).getArrive(), "0", "0", "0", 0));
 
         for (Station st : costStations) {
-            c.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
+            c.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", st.getLine() ));
         }
         c.add(new Station(costStations.get(costStations.size() - 1).getArrive(), "0", "0", "0", 0));
 
         for (Station st : distanceStations) {
-            d.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", Integer.parseInt(st.getName()) / 100 ));
+            d.add(new Station(st.getName(), st.getCost() + "", st.getTime() + "", st.getDistance() + "", st.getLine() ));
         }
         d.add(new Station(distanceStations.get(distanceStations.size() - 1).getArrive(), "0", "0", "0", 0));
 
