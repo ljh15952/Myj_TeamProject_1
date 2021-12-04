@@ -172,12 +172,12 @@ public class PathFinder extends AppCompatActivity {
             while (!st.empty()) {
                 if (prev_line != st.peek().y) { // 호선 정보가 달라지면 환승을 알린다.
                     //  System.out.print("\n" + st.peek().y + "호선 ");
-                   // Log.d("첫번째Log" , st.peek().y + "");
+                    // Log.d("첫번째Log" , st.peek().y + "");
                     pathArr.add(st.peek().x);
                     prev_line = st.peek().y;
                 }
                 // System.out.print(st.peek().x + " ");
-               // Log.d("첫번째 Logg" , st.peek().x + "");
+                // Log.d("첫번째 Logg" , st.peek().x + "");
                 pathArr.add(st.peek().x);
                 st.pop();
             }
@@ -288,6 +288,7 @@ public class PathFinder extends AppCompatActivity {
     private void setUpStation(int type, Context context) {
         for (int i = 0; i < MAX_V; i++)
             adj[i] = new ArrayList<>();
+        Log.d("ASD","HIIH");
         getAllStationDataToTuple(type, context);
     }
 
@@ -363,7 +364,11 @@ public class PathFinder extends AppCompatActivity {
                         int timeData = jsonObject.getInt("timeData");
                         int DistanceData = jsonObject.getInt("distanceData");
                         int costData = jsonObject.getInt("costData");
-                        Station st = new Station(startData, endData, costData, timeData, DistanceData, 1);
+
+                        //호선 추가
+                        int lineData = jsonObject.getInt("lineData");
+
+                        Station st = new Station(startData, endData, costData, timeData, DistanceData, lineData);
                         returnStations.add(st);
                     } else {
                         //역방향..
