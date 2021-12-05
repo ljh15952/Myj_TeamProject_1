@@ -194,7 +194,7 @@ public class PathActivity extends AppCompatActivity {
                     is_book = true;
                     continue;
                 }
-                str = u + " " + v + " " + c + "\n";
+                str += u + " " + v + " " + c + "\n";
             }
             if(is_book == true){
                 File path = getApplicationContext().getFilesDir();
