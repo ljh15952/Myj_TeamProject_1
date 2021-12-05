@@ -39,6 +39,8 @@ public class BookMarkView extends View {
     public static int choose = -1;
     static ArrayList<Station> arr;
     Context context;
+    int lastSize = -1;
+    int nowSize = -1;
 
     public BookMarkView(Context context, AttributeSet attr) {
         super(context, attr);
@@ -99,6 +101,7 @@ public class BookMarkView extends View {
         arr.clear();
         list.clear();
         Scanner scan = null;
+        lastSize = nowSize;
         File readFrom = new File(context.getFilesDir(), "Bookmark.txt");
         try {
             scan = new Scanner(readFrom);
@@ -112,6 +115,14 @@ public class BookMarkView extends View {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        nowSize = list.size();
+        if(lastSize == -1)
+            lastSize = nowSize;
+        if(lastSize != nowSize) {
+            choose = -1;
+            touch_x = -1000;
+            touch_y = -1000;
         }
 
         int i = 0;

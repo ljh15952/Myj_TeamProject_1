@@ -205,7 +205,6 @@ public class PathActivity extends AppCompatActivity {
                     w.close();
                     book.setBackgroundColor(Color.DKGRAY);
                     Toast.makeText(PathActivity.this, "즐겨찾기 해제!", Toast.LENGTH_SHORT).show();
-                    BookMarkView.choose = -1;
                     return;
                 } catch (Exception e) {
                     e.printStackTrace();
